@@ -42,7 +42,7 @@ public final class ConfigurationRules {
     static final ArchRule configuration_should_be_in_configuration_package = classes()
         .that(Predicates.areConfigurationClasses())
         .should()
-        .resideInAPackage("..config..");
+        .resideInAPackage("..configuration..");
 
     /**
      * Configuration classes should be suffixed.
@@ -51,7 +51,7 @@ public final class ConfigurationRules {
     static final ArchRule configuration_should_be_suffixed                 = classes()
         .that(Predicates.areConfigurationClasses())
         .should()
-        .haveSimpleNameEndingWith("Config");
+        .haveSimpleNameEndingWith("Configuration");
 
     private ConfigurationRules() {
         super();
