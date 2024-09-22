@@ -23,8 +23,8 @@
    <version>1.0.0-SNAPSHOT</version>
    <packaging>jar</packaging>
 
-   <name>Basic Maven Project</name>
-   <description>A Maven project created from the library archetype.</description>
+   <name>Java Architecture Tests</name>
+   <description>Architecture tests for Java projects.</description>
    <url>https://github.com/bernardo-mg/architecture-tests</url>
    <inceptionYear>2024</inceptionYear>
 
@@ -198,12 +198,13 @@
       <checkstyle.excludes>**/generated/**/*</checkstyle.excludes>
       <!-- Exclusion patterns for SpotBugs -->
       <spotbugs.excludeFilterFile>${project.basedir}/src/config/spotbugs/spotbugs-exclude.xml</spotbugs.excludeFilterFile>
+      <plugin.site.version>3.12.1</plugin.site.version>
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
-      <site.skin.version>2.3.2</site.skin.version>
+      <site.skin.version>2.3.3</site.skin.version>
       <mavenURL>https://mvnrepository.com/artifact/${project.groupId}/${project.artifactId}</mavenURL>
-      <githubArtifactURL><![CDATA[https://github.com/bernardo-mg?tab=packages&amp;repo_name={project.artifactId}]]></githubArtifactURL>
+      <githubArtifactURL><![CDATA[https://github.com/bernardo-mg?tab=packages&amp;repo_name=java-architecture-tests]]></githubArtifactURL>
    </properties>
 
    <!-- ********************************************** -->
