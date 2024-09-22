@@ -32,6 +32,9 @@ import com.bernardomg.framework.testing.architecture.predicates.Predicates;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
+/**
+ * Service rules.
+ */
 public final class ServiceRules {
 
     /**
@@ -53,5 +56,9 @@ public final class ServiceRules {
         .areNotInterfaces()
         .should()
         .notBeAnnotatedWith(Service.class);
+
+    private ServiceRules() {
+        super();
+    }
 
 }

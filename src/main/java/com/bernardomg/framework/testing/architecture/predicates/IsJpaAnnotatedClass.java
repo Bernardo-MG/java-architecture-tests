@@ -33,6 +33,9 @@ import com.tngtech.archunit.core.domain.JavaClass;
  */
 public final class IsJpaAnnotatedClass extends DescribedPredicate<JavaClass> {
 
+    /**
+     * Checks if it is annotated with a JPA annotation.
+     */
     private final IsJpaAnnotation isJpaAnnotation = new IsJpaAnnotation();
 
     public IsJpaAnnotatedClass() {

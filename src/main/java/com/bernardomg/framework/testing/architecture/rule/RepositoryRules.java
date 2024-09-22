@@ -35,6 +35,9 @@ import com.bernardomg.framework.testing.architecture.predicates.Predicates;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
+/**
+ * Repository rules.
+ */
 public final class RepositoryRules {
 
     @ArchTest
@@ -85,5 +88,9 @@ public final class RepositoryRules {
         .and()
         .arePublic()
         .should(not(haveNameStartingWith("findOne")));
+
+    private RepositoryRules() {
+        super();
+    }
 
 }

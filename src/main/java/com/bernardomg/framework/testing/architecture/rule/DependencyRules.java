@@ -31,7 +31,10 @@ import static com.tngtech.archunit.library.GeneralCodingRules.NO_CLASSES_SHOULD_
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
-public class DependencyRules {
+/**
+ * Dependency rules.
+ */
+public final class DependencyRules {
 
     @ArchTest
     static final ArchRule no_java_util_logging   = NO_CLASSES_SHOULD_USE_JAVA_UTIL_LOGGING;
@@ -43,5 +46,9 @@ public class DependencyRules {
     static final ArchRule not_import_log4j_utils = noClasses().should()
         .dependOnClassesThat()
         .resideInAnyPackage("org.apache.logging.log4j.util..");
+
+    private DependencyRules() {
+        super();
+    }
 
 }

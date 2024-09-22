@@ -33,6 +33,9 @@ import com.tngtech.archunit.core.domain.JavaAnnotation;
  */
 public final class IsJpaAnnotation extends DescribedPredicate<JavaAnnotation<?>> {
 
+    /**
+     * JPA package.
+     */
     private static final String PACKAGE = "jakarta.persistence";
 
     public IsJpaAnnotation() {

@@ -30,6 +30,9 @@ import com.bernardomg.framework.testing.architecture.predicates.Predicates;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
+/**
+ * Validation rules.
+ */
 public final class ValidationRules {
 
     @ArchTest
@@ -59,5 +62,9 @@ public final class ValidationRules {
         .should()
         .haveSimpleNameEndingWith("Validator")
         .allowEmptyShould(true);
+
+    private ValidationRules() {
+        super();
+    }
 
 }

@@ -35,7 +35,7 @@ import com.tngtech.archunit.core.domain.AccessTarget.MethodCallTarget;
 import com.tngtech.archunit.core.domain.JavaAnnotation;
 import com.tngtech.archunit.core.domain.JavaClass;
 
-public class Predicates {
+public final class Predicates {
 
     public static final DescribedPredicate<MethodCallTarget> areCachedMethod() {
         return new IsSpringCachedMethod();
@@ -80,4 +80,9 @@ public class Predicates {
     public static final IsValidatorRuleClass areValidatorRuleClasses() {
         return new IsValidatorRuleClass();
     }
+
+    private Predicates() {
+        super();
+    }
+
 }

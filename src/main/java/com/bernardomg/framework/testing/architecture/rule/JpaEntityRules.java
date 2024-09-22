@@ -38,6 +38,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
+/**
+ * JPA entity rules.
+ */
 public final class JpaEntityRules {
 
     @ArchTest
@@ -80,5 +83,9 @@ public final class JpaEntityRules {
         .areNotStatic()
         .should()
         .beAnnotatedWith(Predicates.areJpaAnnotations());
+
+    private JpaEntityRules() {
+        super();
+    }
 
 }

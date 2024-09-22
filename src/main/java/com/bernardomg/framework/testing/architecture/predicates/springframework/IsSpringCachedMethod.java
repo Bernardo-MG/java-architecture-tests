@@ -33,6 +33,9 @@ import com.tngtech.archunit.core.domain.AccessTarget.MethodCallTarget;
  */
 public final class IsSpringCachedMethod extends DescribedPredicate<MethodCallTarget> {
 
+    /**
+     * Checks if it is annotated with a cache annotation.
+     */
     private final IsSpringCacheAnnotation isSpringCacheAnnotation = new IsSpringCacheAnnotation();
 
     public IsSpringCachedMethod() {

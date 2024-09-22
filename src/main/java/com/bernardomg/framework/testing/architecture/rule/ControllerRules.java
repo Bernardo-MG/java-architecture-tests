@@ -30,6 +30,9 @@ import com.bernardomg.framework.testing.architecture.predicates.Predicates;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
+/**
+ * Controller rules.
+ */
 public final class ControllerRules {
 
     @ArchTest
@@ -43,5 +46,9 @@ public final class ControllerRules {
         .that(Predicates.areControllerClasses())
         .should()
         .haveSimpleNameEndingWith("Controller");
+
+    private ControllerRules() {
+        super();
+    }
 
 }

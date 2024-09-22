@@ -30,18 +30,31 @@ import com.bernardomg.framework.testing.architecture.predicates.Predicates;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
+/**
+ * Configuration rules.
+ */
 public final class ConfigurationRules {
 
+    /**
+     * Configuration should be in the configuration package.
+     */
     @ArchTest
     static final ArchRule configuration_should_be_in_configuration_package = classes()
         .that(Predicates.areConfigurationClasses())
         .should()
         .resideInAPackage("..config..");
 
+    /**
+     * Configuration classes should be suffixed.
+     */
     @ArchTest
     static final ArchRule configuration_should_be_suffixed                 = classes()
         .that(Predicates.areConfigurationClasses())
         .should()
         .haveSimpleNameEndingWith("Config");
+
+    private ConfigurationRules() {
+        super();
+    }
 
 }

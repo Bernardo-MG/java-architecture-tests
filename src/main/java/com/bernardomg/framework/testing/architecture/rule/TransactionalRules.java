@@ -33,6 +33,9 @@ import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 import com.tngtech.archunit.library.ProxyRules;
 
+/**
+ * Transactional rules.
+ */
 public final class TransactionalRules {
 
     @ArchTest
@@ -58,5 +61,9 @@ public final class TransactionalRules {
         .areNotInterfaces()
         .should()
         .beAnnotatedWith(Transactional.class);
+
+    private TransactionalRules() {
+        super();
+    }
 
 }

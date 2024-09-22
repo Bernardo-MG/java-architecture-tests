@@ -22,31 +22,8 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.framework.testing.architecture.predicates.springframework;
-
-import com.tngtech.archunit.base.DescribedPredicate;
-import com.tngtech.archunit.core.domain.JavaAnnotation;
-
 /**
- * Checks if an annotation is a Spring cache annotation. This is done by checking the annotation is in the Spring cache
- * annotation package.
+ * Architecture test predicates for Spring Framework components.
  */
-public final class IsSpringCacheAnnotation extends DescribedPredicate<JavaAnnotation<?>> {
 
-    /**
-     * Annotation package.
-     */
-    private static final String PACKAGE = "org.springframework.cache.annotation";
-
-    public IsSpringCacheAnnotation() {
-        super("Spring cache annotations");
-    }
-
-    @Override
-    public final boolean test(final JavaAnnotation<?> annotation) {
-        return annotation.getRawType()
-            .getPackageName()
-            .startsWith(PACKAGE);
-    }
-
-}
+package com.bernardomg.framework.testing.architecture.predicates.springframework;
