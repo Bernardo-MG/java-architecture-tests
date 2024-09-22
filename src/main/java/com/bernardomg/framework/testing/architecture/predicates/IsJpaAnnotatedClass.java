@@ -21,8 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-/**
- * Provides placeholder classes.
- */
-package com.bernardomg.framework.testing.architecture;
 
+package com.bernardomg.framework.testing.architecture.predicates;
+
+import com.tngtech.archunit.base.DescribedPredicate;
+import com.tngtech.archunit.core.domain.JavaClass;
+
+/**
+ * Checks if a class is annotated with JPA annotations. This is delegated to {@link IsJpaAnnotation}, which will check
+ * the annotations in the class.
+ */
+public final class IsJpaAnnotatedClass extends DescribedPredicate<JavaClass> {
+
+    /**
+     * Checks if it is annotated with a JPA annotation.
+     */
+    private final IsJpaAnnotation isJpaAnnotation = new IsJpaAnnotation();
+
+    public IsJpaAnnotatedClass() {
+        super("JPA classes");
+    }
+
+    @Override
+    public final boolean test(final JavaClass javaClass) {
+        return javaClass.isMetaAnnotatedWith(isJpaAnnotation);
+    }
+
+}

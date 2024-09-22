@@ -22,34 +22,30 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.framework.testing.architecture;
+package com.bernardomg.framework.testing.architecture.predicates.springframework;
+
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Configuration;
+
+import com.tngtech.archunit.base.DescribedPredicate;
+import com.tngtech.archunit.core.domain.JavaClass;
 
 /**
- * Greeter class.
- * <p>
- * This is just a placeholder class which may be safely removed.
- * <p>
- * Pay attention to the fact that this is used on the placeholder tests too
- *
- * @author Bernardo Martínez Garrido
+ * Checks if a class is a Spring configuration class. This is done by checking the class annotations, and ignoring
+ * Spring Boot application classes.
  */
+public final class IsSpringConfigurationClass extends DescribedPredicate<JavaClass> {
 
-public final class Greeter {
-
-    /**
-     * Default constructor.
-     */
-    public Greeter() {
-        super();
+    public IsSpringConfigurationClass() {
+        super("Spring configuration classes");
     }
 
-    /**
-     * Returns a greeting.
-     *
-     * @return a greeting
-     */
-    public String sayHello() {
-        return "Hello World!";
+    @Override
+    public final boolean test(final JavaClass javaClass) {
+        return (javaClass.isMetaAnnotatedWith(Configuration.class)
+                || javaClass.isMetaAnnotatedWith(AutoConfiguration.class))
+                && (!javaClass.isMetaAnnotatedWith(SpringBootApplication.class));
     }
 
 }

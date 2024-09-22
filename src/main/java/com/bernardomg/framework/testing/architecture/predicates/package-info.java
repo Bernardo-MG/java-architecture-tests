@@ -22,36 +22,8 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.framework.testing.architecture.test.integration;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-import com.bernardomg.framework.testing.architecture.Greeter;
-
 /**
- * Integration tests for {@link Greeter}.
- * <p>
- * This is actually a placeholder test for the integration tests suite.
- *
- * @author Bernardo Martínez Garrido
- *
+ * Architecture test predicates.
  */
-public final class ITGreeter {
 
-    /**
-     * Default constructor.
-     */
-    public ITGreeter() {
-        super();
-    }
-
-    /**
-     * Tests that the {@code Greeter} returns a greeting.
-     */
-    @Test
-    public final void sayHello() {
-        Assertions.assertEquals("Hello World!", new Greeter().sayHello());
-    }
-
-}
+package com.bernardomg.framework.testing.architecture.predicates;

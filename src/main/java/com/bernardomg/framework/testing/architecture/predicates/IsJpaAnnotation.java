@@ -22,36 +22,31 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.framework.testing.architecture.test.unit;
+package com.bernardomg.framework.testing.architecture.predicates;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-import com.bernardomg.framework.testing.architecture.Greeter;
+import com.tngtech.archunit.base.DescribedPredicate;
+import com.tngtech.archunit.core.domain.JavaAnnotation;
 
 /**
- * Unit tests for {@link Greeter}.
- * <p>
- * This is just a placeholder test for the unit tests suite.
- *
- * @author Bernardo Martínez Garrido
- *
+ * Checks if an annotation is a JPA annotation. This is done by checking the annotation is in the Jakarta persistence
+ * package.
  */
-public final class TestGreeter {
+public final class IsJpaAnnotation extends DescribedPredicate<JavaAnnotation<?>> {
 
     /**
-     * Default constructor.
+     * JPA package.
      */
-    public TestGreeter() {
-        super();
+    private static final String PACKAGE = "jakarta.persistence";
+
+    public IsJpaAnnotation() {
+        super("JPA annotations");
     }
 
-    /**
-     * Tests that the {@code Greeter} returns a greeting.
-     */
-    @Test
-    public final void sayHello() {
-        Assertions.assertEquals("Hello World!", new Greeter().sayHello());
+    @Override
+    public final boolean test(final JavaAnnotation<?> annotation) {
+        return annotation.getRawType()
+            .getPackageName()
+            .startsWith(PACKAGE);
     }
 
 }
