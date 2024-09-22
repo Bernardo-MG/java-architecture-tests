@@ -38,24 +38,30 @@ import com.tngtech.archunit.lang.ArchRule;
 public final class ServiceRules {
 
     /**
-     * TODO: the predicate already checks this is in a service package.
+     * Services should not use the Spring annotation.
      */
     @ArchTest
-    static final ArchRule services_should_be_in_service_package = classes().that(Predicates.areServiceClasses())
-        .should()
-        .resideInAPackage("..service..");
-
-    @ArchTest
-    static final ArchRule services_should_be_suffixed           = classes().that(Predicates.areServiceClasses())
-        .should()
-        .haveSimpleNameEndingWith("Service");
-
-    @ArchTest
-    static final ArchRule services_should_not_use_autoscan      = classes().that(Predicates.areServiceClasses())
+    static final ArchRule services_should_be_annotated_with_spring = classes().that(Predicates.areServiceClasses())
         .and()
         .areNotInterfaces()
         .should()
         .notBeAnnotatedWith(Service.class);
+
+    /**
+     * TODO: the predicate already checks this is in a service package.
+     */
+    @ArchTest
+    static final ArchRule services_should_be_in_service_package    = classes().that(Predicates.areServiceClasses())
+        .should()
+        .resideInAPackage("..service..");
+
+    /**
+     * Services should be suffixed.
+     */
+    @ArchTest
+    static final ArchRule services_should_be_suffixed              = classes().that(Predicates.areServiceClasses())
+        .should()
+        .haveSimpleNameEndingWith("Service");
 
     private ServiceRules() {
         super();

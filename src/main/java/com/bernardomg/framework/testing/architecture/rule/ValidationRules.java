@@ -35,6 +35,9 @@ import com.tngtech.archunit.lang.ArchRule;
  */
 public final class ValidationRules {
 
+    /**
+     * Validator rules should be in the validation package.
+     */
     @ArchTest
     static final ArchRule validator_rules_should_be_in_validation_package = classes()
         .that(Predicates.areValidatorRuleClasses())
@@ -42,6 +45,9 @@ public final class ValidationRules {
         .resideInAPackage("..validation..")
         .allowEmptyShould(true);
 
+    /**
+     * Validator rules should be suffixed.
+     */
     @ArchTest
     static final ArchRule validator_rules_should_be_suffixed              = classes()
         .that(Predicates.areValidatorRuleClasses())
@@ -49,6 +55,9 @@ public final class ValidationRules {
         .haveSimpleNameEndingWith("Rule")
         .allowEmptyShould(true);
 
+    /**
+     * Validators should be in a validation package.
+     */
     @ArchTest
     static final ArchRule validators_should_be_in_validation_package      = classes()
         .that(Predicates.areValidatorClasses())
@@ -56,6 +65,9 @@ public final class ValidationRules {
         .resideInAPackage("..validation..")
         .allowEmptyShould(true);
 
+    /**
+     * Validators should be suffixed.
+     */
     @ArchTest
     static final ArchRule validators_should_be_suffixed                   = classes()
         .that(Predicates.areValidatorClasses())

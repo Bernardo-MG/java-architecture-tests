@@ -43,6 +43,9 @@ import jakarta.persistence.Transient;
  */
 public final class JpaEntityRules {
 
+    /**
+     * Serial UID should be transient.
+     */
     @ArchTest
     static final ArchRule entity_serial_uid_should_be_transient   = fields().that()
         .areDeclaredInClassesThat(Predicates.areJpaEntitiesClasses())
@@ -51,6 +54,9 @@ public final class JpaEntityRules {
         .should()
         .beAnnotatedWith(Transient.class);
 
+    /**
+     * JPA entities should be annotated.
+     */
     @ArchTest
     static final ArchRule jpa_entities_should_be_annotated        = classes().that(Predicates.areJpaEntitiesClasses())
         .should()
@@ -60,22 +66,34 @@ public final class JpaEntityRules {
         .orShould()
         .beAnnotatedWith(Embeddable.class);
 
+    /**
+     * JPA entities should be in a model package.
+     */
     @ArchTest
     static final ArchRule jpa_entities_should_be_in_model_package = classes().that(Predicates.areJpaEntitiesClasses())
         .should()
         .resideInAPackage("..adapter.inbound.jpa.model..");
 
+    /**
+     * JPA entities should be serializable.
+     */
     @ArchTest
     static final ArchRule jpa_entities_should_be_serializable     = classes().that(Predicates.areJpaEntitiesClasses())
         .should()
         .beAssignableTo(Serializable.class);
 
+    /**
+     * JPA entities should be suffixed.
+     */
     @ArchTest
     static final ArchRule jpa_entities_should_be_suffixed         = classes().that()
         .areAnnotatedWith(Entity.class)
         .should()
         .haveSimpleNameEndingWith("Entity");
 
+    /**
+     * JPA entity fields should be annotated.
+     */
     @ArchTest
     static final ArchRule jpa_entity_fields_should_be_annotated   = fields().that()
         .areDeclaredInClassesThat(Predicates.areJpaEntitiesClasses())

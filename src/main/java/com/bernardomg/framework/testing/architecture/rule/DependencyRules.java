@@ -36,12 +36,21 @@ import com.tngtech.archunit.lang.ArchRule;
  */
 public final class DependencyRules {
 
+    /**
+     * Java util is not used for logging.
+     */
     @ArchTest
     static final ArchRule no_java_util_logging   = NO_CLASSES_SHOULD_USE_JAVA_UTIL_LOGGING;
 
+    /**
+     * No usage of Joda time.
+     */
     @ArchTest
     static final ArchRule no_jodatime            = NO_CLASSES_SHOULD_USE_JODATIME;
 
+    /**
+     * Log4j utils are not imported.
+     */
     @ArchTest
     static final ArchRule not_import_log4j_utils = noClasses().should()
         .dependOnClassesThat()

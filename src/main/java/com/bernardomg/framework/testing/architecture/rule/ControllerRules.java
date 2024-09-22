@@ -35,12 +35,18 @@ import com.tngtech.archunit.lang.ArchRule;
  */
 public final class ControllerRules {
 
+    /**
+     * Controllers should be in a controller package.
+     */
     @ArchTest
     static final ArchRule controllers_should_be_in_controller_package = classes()
         .that(Predicates.areControllerClasses())
         .should()
         .resideInAPackage("..adapter.outbound.rest.controller..");
 
+    /**
+     * Controllers should be suffixed.
+     */
     @ArchTest
     static final ArchRule controllers_should_be_suffixed              = classes()
         .that(Predicates.areControllerClasses())

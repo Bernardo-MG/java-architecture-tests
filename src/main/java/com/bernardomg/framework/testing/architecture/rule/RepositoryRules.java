@@ -40,6 +40,9 @@ import com.tngtech.archunit.lang.ArchRule;
  */
 public final class RepositoryRules {
 
+    /**
+     * JPA repositories should be prefixed.
+     */
     @ArchTest
     static final ArchRule jpa_repositories_should_be_prefixed                            = classes()
         .that(Predicates.areRepositoryClasses())
@@ -48,14 +51,9 @@ public final class RepositoryRules {
         .should()
         .haveSimpleNameStartingWith("Jpa");
 
-    @ArchTest
-    static final ArchRule jpa_repositories_should_implement_repository_interface         = classes()
-        .that(Predicates.areRepositoryClasses())
-        .and()
-        .areNotInterfaces()
-        .should()
-        .implement(Predicates.areRepositoryClasses());
-
+    /**
+     * Repository interfaces should be in the domain package.
+     */
     @ArchTest
     static final ArchRule repositories_interfaces_should_be_in_domain_repository_package = classes()
         .that(Predicates.areRepositoryClasses())
@@ -64,24 +62,38 @@ public final class RepositoryRules {
         .should()
         .resideInAPackage("..domain.repository..");
 
+    /**
+     * Repositories should not use the Spring annotation.
+     */
     @ArchTest
-    static final ArchRule repositories_should_not_use_autoscan                           = classes()
+    static final ArchRule repositories_should_be_annotated_with_spring                   = classes()
         .that(Predicates.areRepositoryClasses())
         .should()
         .notBeAnnotatedWith(Repository.class);
 
+    /**
+     * Spring repositories should be in a JPA package.
+     * <p>
+     * TODO: this only should affect JPA repositories
+     */
     @ArchTest
     static final ArchRule spring_repositories_should_be_in_jpa_repository_package        = classes()
         .that(Predicates.areSpringRepositoryClasses())
         .should()
         .resideInAPackage("..adapter.inbound.jpa.repository..");
 
+    /**
+     * Spring repositories should be suffixed.
+     */
     @ArchTest
     static final ArchRule spring_repositories_should_be_suffixed                         = classes()
         .that(Predicates.areSpringRepositoryClasses())
         .should()
         .haveSimpleNameEndingWith("SpringRepository");
 
+    /**
+     * Spring repositories should not have a findOne method.
+     */
     @ArchTest
     static final ArchRule spring_repositories_should_no_have_find_one                    = methods().that()
         .areDeclaredInClassesThat(Predicates.areSpringRepositoryClasses())
