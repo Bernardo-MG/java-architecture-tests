@@ -23,8 +23,8 @@
    <version>1.0.0-SNAPSHOT</version>
    <packaging>jar</packaging>
 
-   <name>Basic Maven Project</name>
-   <description>A Maven project created from the library archetype.</description>
+   <name>Java Architecture Tests</name>
+   <description>Architecture tests for Java projects.</description>
    <url>https://github.com/bernardo-mg/architecture-tests</url>
    <inceptionYear>2024</inceptionYear>
 
@@ -181,10 +181,14 @@
       <!-- ============================================== -->
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
+      <archunit.version>1.2.1</archunit.version>
+      <bernardomg.framework.validation.version>0.2.0</bernardomg.framework.validation.version>
       <junit.jupiter.version>5.10.1</junit.jupiter.version>
       <mockito.version>5.13.0</mockito.version>
       <log4j.version>2.24.0</log4j.version>
       <slf4j.version>2.0.16</slf4j.version>
+      <spring.boot.version>3.3.0</spring.boot.version>
+      <spring.data.version>2024.0.1</spring.data.version>
       <!-- ============================================== -->
       <!-- ============ PLUGIN CONFIGURATION ============ -->
       <!-- ============================================== -->
@@ -194,12 +198,13 @@
       <checkstyle.excludes>**/generated/**/*</checkstyle.excludes>
       <!-- Exclusion patterns for SpotBugs -->
       <spotbugs.excludeFilterFile>${project.basedir}/src/config/spotbugs/spotbugs-exclude.xml</spotbugs.excludeFilterFile>
+      <plugin.site.version>3.12.1</plugin.site.version>
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
-      <site.skin.version>2.3.2</site.skin.version>
+      <site.skin.version>2.3.3</site.skin.version>
       <mavenURL>https://mvnrepository.com/artifact/${project.groupId}/${project.artifactId}</mavenURL>
-      <githubArtifactURL><![CDATA[https://github.com/bernardo-mg?tab=packages&amp;repo_name={project.artifactId}]]></githubArtifactURL>
+      <githubArtifactURL><![CDATA[https://github.com/bernardo-mg?tab=packages&amp;repo_name=java-architecture-tests]]></githubArtifactURL>
    </properties>
 
    <!-- ********************************************** -->
@@ -216,10 +221,74 @@
             <type>pom</type>
             <scope>import</scope>
          </dependency>
+         <dependency>
+            <!-- Spring Boot Dependencies BOM -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-dependencies</artifactId>
+            <version>${spring.boot.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
+         <dependency>
+            <!-- Spring Data BOM -->
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-bom</artifactId>
+            <version>${spring.data.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
       </dependencies>
    </dependencyManagement>
 
    <dependencies>
+      <!-- ============================================== -->
+      <!-- ================ FRAMEWORK =================== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- Validation -->
+         <groupId>com.bernardomg.framework</groupId>
+         <artifactId>validation</artifactId>
+         <version>${bernardomg.framework.validation.version}</version>
+      </dependency>
+      <!-- ============================================== -->
+      <!-- ================= ARCHUNIT =================== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- ArchUnit -->
+         <groupId>com.tngtech.archunit</groupId>
+         <artifactId>archunit-junit5</artifactId>
+         <version>${archunit.version}</version>
+         <scope>provided</scope>
+      </dependency>
+      <!-- ============================================== -->
+      <!-- ================== SPRING ==================== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- Spring Data Commons -->
+         <groupId>org.springframework.data</groupId>
+         <artifactId>spring-data-commons</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Autoconfiguration -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-autoconfigure</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Transaction -->
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-tx</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      <!-- ============================================== -->
+      <!-- ============== JPA DEPENDENCIES ============== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- JPA API -->
+         <groupId>jakarta.persistence</groupId>
+         <artifactId>jakarta.persistence-api</artifactId>
+      </dependency>
       <!-- ============================================== -->
       <!-- ================== LOGGERS =================== -->
       <!-- ============================================== -->
