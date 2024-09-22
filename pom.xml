@@ -41,20 +41,20 @@
    <!-- ********************************************** -->
 
    <scm>
-      <connection>scm:git:https://github.com/bernardo-mg/architecture-tests.git</connection>
-      <developerConnection>scm:git:https://github.com/bernardo-mg/architecture-tests.git</developerConnection>
+      <connection>scm:git:https://github.com/bernardo-mg/java-architecture-tests.git</connection>
+      <developerConnection>scm:git:https://github.com/bernardo-mg/java-architecture-tests.git</developerConnection>
       <tag>head</tag>
-      <url>https://github.com/bernardo-mg/architecture-tests</url>
+      <url>https://github.com/bernardo-mg/java-architecture-tests</url>
    </scm>
 
    <issueManagement>
       <system>GitHub</system>
-      <url>https://github.com/bernardo-mg/architecture-tests/issues</url>
+      <url>https://github.com/bernardo-mg/java-architecture-tests/issues</url>
    </issueManagement>
 
    <ciManagement>
       <system>Github</system>
-      <url>https://github.com/bernardo-mg/architecture-tests/actions</url>
+      <url>https://github.com/bernardo-mg/java-architecture-tests/actions</url>
       <notifiers />
    </ciManagement>
 
