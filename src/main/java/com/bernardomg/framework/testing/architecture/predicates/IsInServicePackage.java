@@ -32,15 +32,15 @@ import com.tngtech.archunit.core.domain.JavaClass;
  */
 public final class IsInServicePackage extends DescribedPredicate<JavaClass> {
 
-	/**
-	 * Inner package.
-	 */
+    /**
+     * Inner package.
+     */
     private static final String    INNER_PACKAGE           = ".service.";
 
     /**
      * Outer package.
      */
-    private static final String    OUTER_PACKAGE            = ".service";
+    private static final String    OUTER_PACKAGE           = ".service";
 
     /**
      * TODO: this is meaningless here.
