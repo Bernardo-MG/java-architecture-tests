@@ -22,30 +22,38 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.framework.testing.architecture.predicates;
+package com.bernardomg.framework.testing.architecture.predicates.springframework;
 
-import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.data.repository.Repository;
 
+import com.bernardomg.framework.testing.architecture.predicates.IsSyntheticClass;
 import com.tngtech.archunit.base.DescribedPredicate;
 import com.tngtech.archunit.core.domain.JavaClass;
 
 /**
- * Checks if a class is a Spring configuration class. This is done by checking the class annotations, and ignoring
- * Spring Boot application classes.
+ * Checks if a class is a repository, but not a Spring repository.
  */
-public final class IsSpringConfigurationClass extends DescribedPredicate<JavaClass> {
+public final class IsRepositoryNotSpringClass extends DescribedPredicate<JavaClass> {
 
-    public IsSpringConfigurationClass() {
-        super("Spring configuration classes");
+    /**
+     * TODO: careful when checking by package.
+     */
+    private static final String    PACKAGE                 = ".repository";
+
+    /**
+     * Predicate to check if it is a synthetic class.
+     */
+    private final IsSyntheticClass syntheticClassPredicate = new IsSyntheticClass();
+
+    public IsRepositoryNotSpringClass() {
+        super("repository classes");
     }
 
     @Override
     public final boolean test(final JavaClass javaClass) {
-        return (javaClass.isMetaAnnotatedWith(Configuration.class)
-                || javaClass.isMetaAnnotatedWith(AutoConfiguration.class))
-                && (!javaClass.isMetaAnnotatedWith(SpringBootApplication.class));
+        return (javaClass.getPackageName()
+            .endsWith(PACKAGE)) && (!syntheticClassPredicate.test(javaClass))
+                && (!javaClass.isAssignableTo(Repository.class));
     }
 
 }

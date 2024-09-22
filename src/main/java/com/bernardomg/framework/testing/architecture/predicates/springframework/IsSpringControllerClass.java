@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.framework.testing.architecture.predicates;
+package com.bernardomg.framework.testing.architecture.predicates.springframework;
 
 import org.springframework.stereotype.Controller;
 

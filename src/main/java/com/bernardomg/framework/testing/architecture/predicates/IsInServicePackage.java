@@ -32,18 +32,18 @@ import com.tngtech.archunit.core.domain.JavaClass;
  */
 public final class IsInServicePackage extends DescribedPredicate<JavaClass> {
 
-    /**
-     * TODO: careful when checking by package
-     */
+	/**
+	 * Inner package.
+	 */
     private static final String    INNER_PACKAGE           = ".service.";
 
     /**
-     * TODO: careful when checking by package
+     * Outer package.
      */
-    private static final String    TAIL_PACKAGE            = ".service";
+    private static final String    OUTER_PACKAGE            = ".service";
 
     /**
-     * TODO: this is meaningless here
+     * TODO: this is meaningless here.
      */
     private final IsSyntheticClass syntheticClassPredicate = new IsSyntheticClass();
 
@@ -54,7 +54,7 @@ public final class IsInServicePackage extends DescribedPredicate<JavaClass> {
     @Override
     public final boolean test(final JavaClass javaClass) {
         final String packageName = javaClass.getPackageName();
-        return (packageName.contains(INNER_PACKAGE) || packageName.endsWith(TAIL_PACKAGE))
+        return (packageName.contains(INNER_PACKAGE) || packageName.endsWith(OUTER_PACKAGE))
                 && !syntheticClassPredicate.test(javaClass);
     }
 

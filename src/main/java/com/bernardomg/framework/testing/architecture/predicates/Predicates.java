@@ -24,6 +24,12 @@
 
 package com.bernardomg.framework.testing.architecture.predicates;
 
+import com.bernardomg.framework.testing.architecture.predicates.springframework.IsRepositoryNotSpringClass;
+import com.bernardomg.framework.testing.architecture.predicates.springframework.IsSpringCacheAnnotation;
+import com.bernardomg.framework.testing.architecture.predicates.springframework.IsSpringCachedMethod;
+import com.bernardomg.framework.testing.architecture.predicates.springframework.IsSpringConfigurationClass;
+import com.bernardomg.framework.testing.architecture.predicates.springframework.IsSpringControllerClass;
+import com.bernardomg.framework.testing.architecture.predicates.springframework.IsSpringRepositoryClass;
 import com.tngtech.archunit.base.DescribedPredicate;
 import com.tngtech.archunit.core.domain.AccessTarget.MethodCallTarget;
 import com.tngtech.archunit.core.domain.JavaAnnotation;

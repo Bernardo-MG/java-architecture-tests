@@ -22,28 +22,26 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.framework.testing.architecture.predicates;
+package com.bernardomg.framework.testing.architecture.predicates.springframework;
 
 import com.tngtech.archunit.base.DescribedPredicate;
-import com.tngtech.archunit.core.domain.JavaAnnotation;
+import com.tngtech.archunit.core.domain.AccessTarget.MethodCallTarget;
 
 /**
- * Checks if an annotation is a Spring cache annotation. This is done by checking the annotation is in the Spring cache
- * annotation package.
+ * Checks if a method is annotated with a Spring cache annotation. This is delegated to {@link IsSpringCacheAnnotation},
+ * which will check the annotations in the class.
  */
-public final class IsSpringCacheAnnotation extends DescribedPredicate<JavaAnnotation<?>> {
+public final class IsSpringCachedMethod extends DescribedPredicate<MethodCallTarget> {
 
-    private static final String PACKAGE = "org.springframework.cache.annotation";
+    private final IsSpringCacheAnnotation isSpringCacheAnnotation = new IsSpringCacheAnnotation();
 
-    public IsSpringCacheAnnotation() {
-        super("Spring cache annotations");
+    public IsSpringCachedMethod() {
+        super("Spring cached methods");
     }
 
     @Override
-    public final boolean test(final JavaAnnotation<?> annotation) {
-        return annotation.getRawType()
-            .getPackageName()
-            .startsWith(PACKAGE);
+    public final boolean test(final MethodCallTarget method) {
+        return method.isMetaAnnotatedWith(isSpringCacheAnnotation);
     }
 
 }

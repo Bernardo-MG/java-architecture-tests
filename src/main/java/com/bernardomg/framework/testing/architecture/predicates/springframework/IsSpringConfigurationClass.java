@@ -22,28 +22,30 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.framework.testing.architecture.predicates;
+package com.bernardomg.framework.testing.architecture.predicates.springframework;
 
-import org.springframework.data.repository.Repository;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Configuration;
 
 import com.tngtech.archunit.base.DescribedPredicate;
 import com.tngtech.archunit.core.domain.JavaClass;
 
 /**
- * Checks if a class is a Repository class. This is done by checking it extends the
- * {@link org.springframework.data.repository.Repository Repository} interface or applied the
- * {@link org.springframework.stereotype.Repository Repository} annotation.
+ * Checks if a class is a Spring configuration class. This is done by checking the class annotations, and ignoring
+ * Spring Boot application classes.
  */
-public final class IsSpringRepositoryClass extends DescribedPredicate<JavaClass> {
+public final class IsSpringConfigurationClass extends DescribedPredicate<JavaClass> {
 
-    public IsSpringRepositoryClass() {
-        super("Spring repository classes");
+    public IsSpringConfigurationClass() {
+        super("Spring configuration classes");
     }
 
     @Override
     public final boolean test(final JavaClass javaClass) {
-        return javaClass.isAssignableTo(Repository.class)
-                || javaClass.isMetaAnnotatedWith(org.springframework.stereotype.Repository.class);
+        return (javaClass.isMetaAnnotatedWith(Configuration.class)
+                || javaClass.isMetaAnnotatedWith(AutoConfiguration.class))
+                && (!javaClass.isMetaAnnotatedWith(SpringBootApplication.class));
     }
 
 }

@@ -22,26 +22,28 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.framework.testing.architecture.predicates;
+package com.bernardomg.framework.testing.architecture.predicates.springframework;
+
+import org.springframework.data.repository.Repository;
 
 import com.tngtech.archunit.base.DescribedPredicate;
-import com.tngtech.archunit.core.domain.AccessTarget.MethodCallTarget;
+import com.tngtech.archunit.core.domain.JavaClass;
 
 /**
- * Checks if a method is annotated with a Spring cache annotation. This is delegated to {@link IsSpringCacheAnnotation},
- * which will check the annotations in the class.
+ * Checks if a class is a Repository class. This is done by checking it extends the
+ * {@link org.springframework.data.repository.Repository Repository} interface or applied the
+ * {@link org.springframework.stereotype.Repository Repository} annotation.
  */
-public final class IsSpringCachedMethod extends DescribedPredicate<MethodCallTarget> {
+public final class IsSpringRepositoryClass extends DescribedPredicate<JavaClass> {
 
-    private final IsSpringCacheAnnotation isSpringCacheAnnotation = new IsSpringCacheAnnotation();
-
-    public IsSpringCachedMethod() {
-        super("Spring cached methods");
+    public IsSpringRepositoryClass() {
+        super("Spring repository classes");
     }
 
     @Override
-    public final boolean test(final MethodCallTarget method) {
-        return method.isMetaAnnotatedWith(isSpringCacheAnnotation);
+    public final boolean test(final JavaClass javaClass) {
+        return javaClass.isAssignableTo(Repository.class)
+                || javaClass.isMetaAnnotatedWith(org.springframework.stereotype.Repository.class);
     }
 
 }
