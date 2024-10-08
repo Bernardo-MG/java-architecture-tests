@@ -5,9 +5,14 @@
         <author email="programming@bernardomg.com">Bernardo Martínez Garrido</author>
     </properties>
     <body>
-        <release version="1.0.0" date="2024-01-01" description="First release">
+        <release version="1.0.0" date="2024-09-22" description="First release">
             <action dev="bmg" type="add">
                 First release of the library.
+            </action>
+        </release>
+        <release version="1.0.1" date="2024-10-08" description="Disabled test case">
+            <action dev="bmg" type="update">
+                Disabled service test case.
             </action>
         </release>
     </body>
