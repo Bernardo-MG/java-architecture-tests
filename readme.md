@@ -4,7 +4,7 @@ Architecture tests for Java projects, using [ArchUnit](https://www.archunit.org/
 
 They can be imported into a runnable test:
 
-´´´java
+```java
 @AnalyzeClasses(
         packages = { "com.bernardomg" },
         importOptions = ImportOption.DoNotIncludeTests.class)
@@ -14,7 +14,7 @@ public class ArchitectureRulesTest {
     static final ArchTests serviceRules = ArchTests.in(ServiceRules.class);
 
 }
-´´´
+```
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.bernardomg.framework.testing/architecture-tests.svg)][maven-repo]
 
