@@ -42,8 +42,7 @@ public final class IsSpringRepositoryClass extends DescribedPredicate<JavaClass>
 
     @Override
     public final boolean test(final JavaClass javaClass) {
-        return javaClass.isAssignableTo(Repository.class)
-                || javaClass.isMetaAnnotatedWith(org.springframework.stereotype.Repository.class);
+        return javaClass.isAssignableTo(Repository.class);
     }
 
 }
