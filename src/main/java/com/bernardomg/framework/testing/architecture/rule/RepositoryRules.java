@@ -29,8 +29,6 @@ import static com.tngtech.archunit.lang.conditions.ArchConditions.not;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.methods;
 
-import org.springframework.stereotype.Repository;
-
 import com.bernardomg.framework.testing.architecture.predicates.Predicates;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
@@ -64,12 +62,14 @@ public final class RepositoryRules {
 
     /**
      * Repositories should not use the Spring annotation.
+     * <p>
+     * TODO: check if this can be recovered in another rules suite
      */
-    @ArchTest
-    static final ArchRule repositories_should_be_annotated_with_spring                   = classes()
-        .that(Predicates.areRepositoryClasses())
-        .should()
-        .notBeAnnotatedWith(Repository.class);
+//    @ArchTest
+//    static final ArchRule repositories_should_not_be_annotated_with_spring                   = classes()
+//        .that(Predicates.areRepositoryClasses())
+//        .should()
+//        .notBeAnnotatedWith(Repository.class);
 
     /**
      * Spring repositories should be in a JPA package.

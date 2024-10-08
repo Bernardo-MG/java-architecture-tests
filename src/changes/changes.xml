@@ -15,5 +15,10 @@
                 Disabled service test case.
             </action>
         </release>
+        <release version="1.0.2" date="2024-10-08" description="Disabled test case">
+            <action dev="bmg" type="update">
+                Disabled service test case.
+            </action>
+        </release>
     </body>
 </document>
