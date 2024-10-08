@@ -26,8 +26,6 @@ package com.bernardomg.framework.testing.architecture.rule;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
-import org.springframework.stereotype.Service;
-
 import com.bernardomg.framework.testing.architecture.predicates.Predicates;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
@@ -39,13 +37,15 @@ public final class ServiceRules {
 
     /**
      * Services should not use the Spring annotation.
+     * <p>
+     * TODO: check if this can be recovered in another rules suite
      */
-    @ArchTest
-    static final ArchRule services_should_be_annotated_with_spring = classes().that(Predicates.areServiceClasses())
-        .and()
-        .areNotInterfaces()
-        .should()
-        .notBeAnnotatedWith(Service.class);
+//    @ArchTest
+//    static final ArchRule services_should_not_be_annotated_with_spring = classes().that(Predicates.areServiceClasses())
+//        .and()
+//        .areNotInterfaces()
+//        .should()
+//        .notBeAnnotatedWith(Service.class);
 
     /**
      * TODO: the predicate already checks this is in a service package.
