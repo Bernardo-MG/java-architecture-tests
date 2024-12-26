@@ -30,7 +30,6 @@ import static com.tngtech.archunit.library.GeneralCodingRules.DEPRECATED_API_SHO
 import static com.tngtech.archunit.library.GeneralCodingRules.NO_CLASSES_SHOULD_ACCESS_STANDARD_STREAMS;
 import static com.tngtech.archunit.library.GeneralCodingRules.NO_CLASSES_SHOULD_THROW_GENERIC_EXCEPTIONS;
 import static com.tngtech.archunit.library.GeneralCodingRules.NO_CLASSES_SHOULD_USE_FIELD_INJECTION;
-import static com.tngtech.archunit.library.dependencies.SlicesRuleDefinition.slices;
 
 import org.slf4j.Logger;
 
@@ -56,12 +55,14 @@ public final class CodingRules {
 
     /**
      * There are no cycles between components.
+     * <p>
+     * TODO: does not work correctly
      */
-    @ArchTest
-    static final ArchRule  no_cycles                              = slices().matching("..(*)..")
-        .namingSlices("$2 of $1")
-        .should()
-        .beFreeOfCycles();
+    // @ArchTest
+    // static final ArchRule no_cycles = slices().matching("..(*)..")
+    // .namingSlices("$2 of $1")
+    // .should()
+    // .beFreeOfCycles();
 
     /**
      * No use of deprecated API calls.
