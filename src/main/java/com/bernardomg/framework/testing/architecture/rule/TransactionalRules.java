@@ -29,6 +29,7 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.framework.testing.architecture.predicates.Predicates;
+import com.tngtech.archunit.core.domain.JavaModifier;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 import com.tngtech.archunit.library.ProxyRules;
@@ -60,6 +61,8 @@ public final class TransactionalRules {
     @ArchTest
     static final ArchRule repositories_should_be_transactional    = classes().that(Predicates.areRepositoryClasses())
         .and()
+        .doNotHaveModifier(JavaModifier.ABSTRACT)
+        .and()
         .areNotInterfaces()
         .should()
         .beAnnotatedWith(Transactional.class);
@@ -69,6 +72,8 @@ public final class TransactionalRules {
      */
     @ArchTest
     static final ArchRule services_should_be_transactional        = classes().that(Predicates.areServiceClasses())
+        .and()
+        .doNotHaveModifier(JavaModifier.ABSTRACT)
         .and()
         .areNotInterfaces()
         .should()

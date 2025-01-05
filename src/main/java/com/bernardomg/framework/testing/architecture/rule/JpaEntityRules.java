@@ -30,6 +30,7 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.fields;
 import java.io.Serializable;
 
 import com.bernardomg.framework.testing.architecture.predicates.Predicates;
+import com.tngtech.archunit.core.domain.JavaModifier;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
@@ -59,6 +60,8 @@ public final class JpaEntityRules {
      */
     @ArchTest
     static final ArchRule jpa_entities_should_be_annotated        = classes().that(Predicates.areJpaEntitiesClasses())
+        .and()
+        .doNotHaveModifier(JavaModifier.ABSTRACT)
         .should()
         .beAnnotatedWith(Entity.class)
         .andShould()
@@ -79,6 +82,8 @@ public final class JpaEntityRules {
      */
     @ArchTest
     static final ArchRule jpa_entities_should_be_serializable     = classes().that(Predicates.areJpaEntitiesClasses())
+        .and()
+        .doNotHaveModifier(JavaModifier.ABSTRACT)
         .should()
         .beAssignableTo(Serializable.class);
 

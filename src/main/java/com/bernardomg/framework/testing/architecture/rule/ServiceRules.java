@@ -40,18 +40,19 @@ public final class ServiceRules {
      * <p>
      * TODO: check if this can be recovered in another rules suite
      */
-//    @ArchTest
-//    static final ArchRule services_should_not_be_annotated_with_spring = classes().that(Predicates.areServiceClasses())
-//        .and()
-//        .areNotInterfaces()
-//        .should()
-//        .notBeAnnotatedWith(Service.class);
+    // @ArchTest
+    // static final ArchRule services_should_not_be_annotated_with_spring =
+    // classes().that(Predicates.areServiceClasses())
+    // .and()
+    // .areNotInterfaces()
+    // .should()
+    // .notBeAnnotatedWith(Service.class);
 
     /**
      * TODO: the predicate already checks this is in a service package.
      */
     @ArchTest
-    static final ArchRule services_should_be_in_service_package    = classes().that(Predicates.areServiceClasses())
+    static final ArchRule services_should_be_in_service_package = classes().that(Predicates.areServiceClasses())
         .should()
         .resideInAPackage("..service..");
 
@@ -59,7 +60,7 @@ public final class ServiceRules {
      * Services should be suffixed.
      */
     @ArchTest
-    static final ArchRule services_should_be_suffixed              = classes().that(Predicates.areServiceClasses())
+    static final ArchRule services_should_be_suffixed           = classes().that(Predicates.areServiceClasses())
         .should()
         .haveSimpleNameEndingWith("Service");
 

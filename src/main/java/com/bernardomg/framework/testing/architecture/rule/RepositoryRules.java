@@ -65,11 +65,11 @@ public final class RepositoryRules {
      * <p>
      * TODO: check if this can be recovered in another rules suite
      */
-//    @ArchTest
-//    static final ArchRule repositories_should_not_be_annotated_with_spring                   = classes()
-//        .that(Predicates.areRepositoryClasses())
-//        .should()
-//        .notBeAnnotatedWith(Repository.class);
+    // @ArchTest
+    // static final ArchRule repositories_should_not_be_annotated_with_spring = classes()
+    // .that(Predicates.areRepositoryClasses())
+    // .should()
+    // .notBeAnnotatedWith(Repository.class);
 
     /**
      * Spring repositories should be in a JPA package.
