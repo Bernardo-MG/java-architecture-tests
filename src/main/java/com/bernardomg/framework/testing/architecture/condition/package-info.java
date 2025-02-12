@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2024-2025 the original author or authors.
+ * Copyright (c) 2024 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,21 +22,8 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.framework.testing.architecture.predicates;
+/**
+ * Architecture test conditions.
+ */
 
-import com.bernardomg.validation.validator.FieldRule;
-import com.tngtech.archunit.base.DescribedPredicate;
-import com.tngtech.archunit.core.domain.JavaClass;
-
-public final class IsValidatorRuleClass extends DescribedPredicate<JavaClass> {
-
-    public IsValidatorRuleClass() {
-        super("validation rule classes");
-    }
-
-    @Override
-    public final boolean test(final JavaClass javaClass) {
-        return javaClass.isAssignableTo(FieldRule.class);
-    }
-
-}
+package com.bernardomg.framework.testing.architecture.condition;

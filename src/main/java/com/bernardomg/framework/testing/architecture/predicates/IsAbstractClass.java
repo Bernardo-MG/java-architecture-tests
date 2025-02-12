@@ -22,39 +22,26 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.framework.testing.architecture.rule;
+package com.bernardomg.framework.testing.architecture.predicates;
 
-import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
-
-import com.bernardomg.framework.testing.architecture.predicates.Predicates;
-import com.tngtech.archunit.junit.ArchTest;
-import com.tngtech.archunit.lang.ArchRule;
+import com.tngtech.archunit.base.DescribedPredicate;
+import com.tngtech.archunit.core.domain.JavaClass;
+import com.tngtech.archunit.core.domain.JavaModifier;
 
 /**
- * Configuration rules.
+ * Checks if a class is annotated with JPA annotations. This is delegated to {@link IsJpaAnnotation}, which will check
+ * the annotations in the class.
  */
-public final class ConfigurationRules {
+public final class IsAbstractClass extends DescribedPredicate<JavaClass> {
 
-    /**
-     * Configuration should be in the configuration package.
-     */
-    @ArchTest
-    static final ArchRule configuration_should_be_in_configuration_package = classes()
-        .that(Predicates.areConfigurationClasses())
-        .should()
-        .resideInAPackage("..configuration..");
+    public IsAbstractClass() {
+        super("abstract classes");
+    }
 
-    /**
-     * Configuration classes should be suffixed.
-     */
-    @ArchTest
-    static final ArchRule configuration_should_be_suffixed                 = classes()
-        .that(Predicates.areConfigurationClasses())
-        .should()
-        .haveSimpleNameEndingWith("Configuration");
-
-    private ConfigurationRules() {
-        super();
+    @Override
+    public final boolean test(final JavaClass javaClass) {
+        return javaClass.getModifiers()
+            .contains(JavaModifier.ABSTRACT);
     }
 
 }

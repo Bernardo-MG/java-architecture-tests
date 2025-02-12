@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2024 the original author or authors.
+ * Copyright (c) 2024-2025 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,36 +24,27 @@
 
 package com.bernardomg.framework.testing.architecture.rule;
 
-import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
-import com.bernardomg.framework.testing.architecture.predicates.Predicates;
+import com.bernardomg.framework.testing.architecture.predicates.IsInServicePackage;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
 /**
- * Controller rules.
+ * Layer dependency rules.
  */
-public final class ControllerRules {
+public final class LayerDependencyRules {
 
     /**
-     * Controllers should be in a controller package.
+     * Log4j utils are not imported.
      */
     @ArchTest
-    static final ArchRule controllers_should_be_in_controller_package = classes()
-        .that(Predicates.areControllerClasses())
+    static final ArchRule services_not_import_spring_data = noClasses().that(new IsInServicePackage())
         .should()
-        .resideInAPackage("..adapter.outbound.rest.controller..");
+        .dependOnClassesThat()
+        .resideInAnyPackage("org.springframework.data..");
 
-    /**
-     * Controllers should be suffixed.
-     */
-    @ArchTest
-    static final ArchRule controllers_should_be_suffixed              = classes()
-        .that(Predicates.areControllerClasses())
-        .should()
-        .haveSimpleNameEndingWith("Controller");
-
-    private ControllerRules() {
+    private LayerDependencyRules() {
         super();
     }
 

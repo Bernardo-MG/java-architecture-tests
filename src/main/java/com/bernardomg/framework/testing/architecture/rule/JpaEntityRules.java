@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2024 the original author or authors.
+ * Copyright (c) 2024-2025 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,13 +29,17 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.fields;
 
 import java.io.Serializable;
 
-import com.bernardomg.framework.testing.architecture.predicates.Predicates;
+import com.bernardomg.framework.testing.architecture.condition.BeAnnotatedWithTableOnClassOrSuperclass;
+import com.bernardomg.framework.testing.architecture.predicates.IsAbstractClass;
+import com.bernardomg.framework.testing.architecture.predicates.IsJpaAnnotatedClass;
+import com.bernardomg.framework.testing.architecture.predicates.IsJpaAnnotation;
+import com.tngtech.archunit.base.DescribedPredicate;
+import com.tngtech.archunit.core.domain.JavaModifier;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
 /**
@@ -48,7 +52,7 @@ public final class JpaEntityRules {
      */
     @ArchTest
     static final ArchRule entity_serial_uid_should_be_transient   = fields().that()
-        .areDeclaredInClassesThat(Predicates.areJpaEntitiesClasses())
+        .areDeclaredInClassesThat(new IsJpaAnnotatedClass())
         .and()
         .haveName("serialVersionUID")
         .should()
@@ -58,11 +62,12 @@ public final class JpaEntityRules {
      * JPA entities should be annotated.
      */
     @ArchTest
-    static final ArchRule jpa_entities_should_be_annotated        = classes().that(Predicates.areJpaEntitiesClasses())
+    static final ArchRule jpa_entities_should_be_annotated        = classes().that(new IsJpaAnnotatedClass())
+        .and()
+        .doNotHaveModifier(JavaModifier.ABSTRACT)
         .should()
         .beAnnotatedWith(Entity.class)
-        .andShould()
-        .beAnnotatedWith(Table.class)
+        .andShould(new BeAnnotatedWithTableOnClassOrSuperclass())
         .orShould()
         .beAnnotatedWith(Embeddable.class);
 
@@ -70,7 +75,7 @@ public final class JpaEntityRules {
      * JPA entities should be in a model package.
      */
     @ArchTest
-    static final ArchRule jpa_entities_should_be_in_model_package = classes().that(Predicates.areJpaEntitiesClasses())
+    static final ArchRule jpa_entities_should_be_in_model_package = classes().that(new IsJpaAnnotatedClass())
         .should()
         .resideInAPackage("..adapter.inbound.jpa.model..");
 
@@ -78,7 +83,10 @@ public final class JpaEntityRules {
      * JPA entities should be serializable.
      */
     @ArchTest
-    static final ArchRule jpa_entities_should_be_serializable     = classes().that(Predicates.areJpaEntitiesClasses())
+    static final ArchRule jpa_entities_should_be_serializable     = classes().that(new IsJpaAnnotatedClass()
+        .and(DescribedPredicate.not(new IsAbstractClass())))
+        .and()
+        .doNotHaveModifier(JavaModifier.ABSTRACT)
         .should()
         .beAssignableTo(Serializable.class);
 
@@ -96,11 +104,11 @@ public final class JpaEntityRules {
      */
     @ArchTest
     static final ArchRule jpa_entity_fields_should_be_annotated   = fields().that()
-        .areDeclaredInClassesThat(Predicates.areJpaEntitiesClasses())
+        .areDeclaredInClassesThat(new IsJpaAnnotatedClass())
         .and()
         .areNotStatic()
         .should()
-        .beAnnotatedWith(Predicates.areJpaAnnotations());
+        .beAnnotatedWith(new IsJpaAnnotation());
 
     private JpaEntityRules() {
         super();

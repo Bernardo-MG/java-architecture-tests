@@ -22,21 +22,37 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.framework.testing.architecture.predicates;
+package com.bernardomg.framework.testing.architecture.rule.springframework;
 
-import com.bernardomg.validation.validator.FieldRule;
-import com.tngtech.archunit.base.DescribedPredicate;
-import com.tngtech.archunit.core.domain.JavaClass;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
-public final class IsValidatorRuleClass extends DescribedPredicate<JavaClass> {
+import com.bernardomg.framework.testing.architecture.predicates.springframework.IsSpringControllerClass;
+import com.tngtech.archunit.junit.ArchTest;
+import com.tngtech.archunit.lang.ArchRule;
 
-    public IsValidatorRuleClass() {
-        super("validation rule classes");
-    }
+/**
+ * Controller rules.
+ */
+public final class SpringControllerRules {
 
-    @Override
-    public final boolean test(final JavaClass javaClass) {
-        return javaClass.isAssignableTo(FieldRule.class);
+    /**
+     * Controllers should be in a controller package.
+     */
+    @ArchTest
+    static final ArchRule controllers_should_be_in_controller_package = classes().that(new IsSpringControllerClass())
+        .should()
+        .resideInAPackage("..adapter.outbound.rest.controller..");
+
+    /**
+     * Controllers should be suffixed.
+     */
+    @ArchTest
+    static final ArchRule controllers_should_be_suffixed              = classes().that(new IsSpringControllerClass())
+        .should()
+        .haveSimpleNameEndingWith("Controller");
+
+    private SpringControllerRules() {
+        super();
     }
 
 }
