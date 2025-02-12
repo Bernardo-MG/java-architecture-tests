@@ -29,7 +29,8 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.fields;
 
 import java.io.Serializable;
 
-import com.bernardomg.framework.testing.architecture.predicates.Predicates;
+import com.bernardomg.framework.testing.architecture.predicates.IsJpaAnnotatedClass;
+import com.bernardomg.framework.testing.architecture.predicates.IsJpaAnnotation;
 import com.tngtech.archunit.core.domain.JavaModifier;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
@@ -49,7 +50,7 @@ public final class JpaEntityRules {
      */
     @ArchTest
     static final ArchRule entity_serial_uid_should_be_transient   = fields().that()
-        .areDeclaredInClassesThat(Predicates.areJpaEntitiesClasses())
+        .areDeclaredInClassesThat(new IsJpaAnnotatedClass())
         .and()
         .haveName("serialVersionUID")
         .should()
@@ -59,7 +60,7 @@ public final class JpaEntityRules {
      * JPA entities should be annotated.
      */
     @ArchTest
-    static final ArchRule jpa_entities_should_be_annotated        = classes().that(Predicates.areJpaEntitiesClasses())
+    static final ArchRule jpa_entities_should_be_annotated        = classes().that(new IsJpaAnnotatedClass())
         .and()
         .doNotHaveModifier(JavaModifier.ABSTRACT)
         .should()
@@ -73,7 +74,7 @@ public final class JpaEntityRules {
      * JPA entities should be in a model package.
      */
     @ArchTest
-    static final ArchRule jpa_entities_should_be_in_model_package = classes().that(Predicates.areJpaEntitiesClasses())
+    static final ArchRule jpa_entities_should_be_in_model_package = classes().that(new IsJpaAnnotatedClass())
         .should()
         .resideInAPackage("..adapter.inbound.jpa.model..");
 
@@ -81,7 +82,7 @@ public final class JpaEntityRules {
      * JPA entities should be serializable.
      */
     @ArchTest
-    static final ArchRule jpa_entities_should_be_serializable     = classes().that(Predicates.areJpaEntitiesClasses())
+    static final ArchRule jpa_entities_should_be_serializable     = classes().that(new IsJpaAnnotatedClass())
         .and()
         .doNotHaveModifier(JavaModifier.ABSTRACT)
         .should()
@@ -101,11 +102,11 @@ public final class JpaEntityRules {
      */
     @ArchTest
     static final ArchRule jpa_entity_fields_should_be_annotated   = fields().that()
-        .areDeclaredInClassesThat(Predicates.areJpaEntitiesClasses())
+        .areDeclaredInClassesThat(new IsJpaAnnotatedClass())
         .and()
         .areNotStatic()
         .should()
-        .beAnnotatedWith(Predicates.areJpaAnnotations());
+        .beAnnotatedWith(new IsJpaAnnotation());
 
     private JpaEntityRules() {
         super();

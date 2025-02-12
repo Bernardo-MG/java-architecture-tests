@@ -22,25 +22,28 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.framework.testing.architecture.rule;
+package com.bernardomg.framework.testing.architecture.rule.springframework;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
-import com.bernardomg.framework.testing.architecture.predicates.Predicates;
+import com.bernardomg.framework.testing.architecture.predicates.IsInServicePackage;
+import com.bernardomg.framework.testing.architecture.predicates.springframework.IsRepositoryNotSpringClass;
+import com.bernardomg.framework.testing.architecture.predicates.springframework.IsSpringConfigurationClass;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
 /**
- * Configuration rules.
+ * Spring framework rules.
  */
-public final class ConfigurationRules {
+public final class SpringRules {
 
     /**
      * Configuration should be in the configuration package.
      */
     @ArchTest
-    static final ArchRule configuration_should_be_in_configuration_package = classes()
-        .that(Predicates.areConfigurationClasses())
+    static final ArchRule configuration_should_be_in_configuration_package              = classes()
+        .that(new IsSpringConfigurationClass())
         .should()
         .resideInAPackage("..configuration..");
 
@@ -48,12 +51,28 @@ public final class ConfigurationRules {
      * Configuration classes should be suffixed.
      */
     @ArchTest
-    static final ArchRule configuration_should_be_suffixed                 = classes()
-        .that(Predicates.areConfigurationClasses())
+    static final ArchRule configuration_should_be_suffixed                              = classes()
+        .that(new IsSpringConfigurationClass())
         .should()
         .haveSimpleNameEndingWith("Configuration");
 
-    private ConfigurationRules() {
+    @ArchTest
+    static final ArchRule domain_repository_interfaces_should_not_depend_on_spring_data = noClasses()
+        .that(new IsRepositoryNotSpringClass())
+        .and()
+        .areInterfaces()
+        .should()
+        .dependOnClassesThat()
+        .resideInAnyPackage("org.springframework.data.domain..");
+
+    @ArchTest
+    static final ArchRule services_should_not_depend_on_spring_data                     = noClasses()
+        .that(new IsInServicePackage())
+        .should()
+        .dependOnClassesThat()
+        .resideInAnyPackage("org.springframework.data.domain..");
+
+    private SpringRules() {
         super();
     }
 

@@ -28,7 +28,9 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.framework.testing.architecture.predicates.Predicates;
+import com.bernardomg.framework.testing.architecture.predicates.IsInServicePackage;
+import com.bernardomg.framework.testing.architecture.predicates.springframework.IsRepositoryNotSpringClass;
+import com.bernardomg.framework.testing.architecture.predicates.springframework.IsSpringControllerClass;
 import com.tngtech.archunit.core.domain.JavaModifier;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
@@ -43,7 +45,7 @@ public final class TransactionalRules {
      * Controllers should not be transactional.
      */
     @ArchTest
-    static final ArchRule controllers_should_not_be_transactional = classes().that(Predicates.areControllerClasses())
+    static final ArchRule controllers_should_not_be_transactional = classes().that(new IsSpringControllerClass())
         .should()
         .notBeAnnotatedWith(Transactional.class);
 
@@ -59,7 +61,7 @@ public final class TransactionalRules {
      * Repositories should be transactional.
      */
     @ArchTest
-    static final ArchRule repositories_should_be_transactional    = classes().that(Predicates.areRepositoryClasses())
+    static final ArchRule repositories_should_be_transactional    = classes().that(new IsRepositoryNotSpringClass())
         .and()
         .doNotHaveModifier(JavaModifier.ABSTRACT)
         .and()
@@ -71,7 +73,7 @@ public final class TransactionalRules {
      * Services should be transactional.
      */
     @ArchTest
-    static final ArchRule services_should_be_transactional        = classes().that(Predicates.areServiceClasses())
+    static final ArchRule services_should_be_transactional        = classes().that(new IsInServicePackage())
         .and()
         .doNotHaveModifier(JavaModifier.ABSTRACT)
         .and()

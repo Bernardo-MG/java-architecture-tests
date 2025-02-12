@@ -22,36 +22,36 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.framework.testing.architecture.rule;
+package com.bernardomg.framework.testing.architecture.rule.springframework;
 
-import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
-import com.bernardomg.framework.testing.architecture.predicates.Predicates;
+import com.bernardomg.framework.testing.architecture.predicates.springframework.IsSpringControllerClass;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
 /**
- * Spring framework rules.
+ * Controller rules.
  */
-public final class SpringRules {
+public final class SpringControllerRules {
 
+    /**
+     * Controllers should be in a controller package.
+     */
     @ArchTest
-    static final ArchRule domain_repository_interfaces_should_not_depend_on_spring_data = noClasses()
-        .that(Predicates.areRepositoryClasses())
-        .and()
-        .areInterfaces()
+    static final ArchRule controllers_should_be_in_controller_package = classes().that(new IsSpringControllerClass())
         .should()
-        .dependOnClassesThat()
-        .resideInAnyPackage("org.springframework.data.domain..");
+        .resideInAPackage("..adapter.outbound.rest.controller..");
 
+    /**
+     * Controllers should be suffixed.
+     */
     @ArchTest
-    static final ArchRule services_should_not_depend_on_spring_data                     = noClasses()
-        .that(Predicates.areServiceClasses())
+    static final ArchRule controllers_should_be_suffixed              = classes().that(new IsSpringControllerClass())
         .should()
-        .dependOnClassesThat()
-        .resideInAnyPackage("org.springframework.data.domain..");
+        .haveSimpleNameEndingWith("Controller");
 
-    private SpringRules() {
+    private SpringControllerRules() {
         super();
     }
 

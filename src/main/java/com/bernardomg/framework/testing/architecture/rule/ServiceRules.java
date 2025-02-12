@@ -26,7 +26,7 @@ package com.bernardomg.framework.testing.architecture.rule;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
-import com.bernardomg.framework.testing.architecture.predicates.Predicates;
+import com.bernardomg.framework.testing.architecture.predicates.IsInServicePackage;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
@@ -52,7 +52,7 @@ public final class ServiceRules {
      * TODO: the predicate already checks this is in a service package.
      */
     @ArchTest
-    static final ArchRule services_should_be_in_service_package = classes().that(Predicates.areServiceClasses())
+    static final ArchRule services_should_be_in_service_package = classes().that(new IsInServicePackage())
         .should()
         .resideInAPackage("..service..");
 
@@ -60,7 +60,7 @@ public final class ServiceRules {
      * Services should be suffixed.
      */
     @ArchTest
-    static final ArchRule services_should_be_suffixed           = classes().that(Predicates.areServiceClasses())
+    static final ArchRule services_should_be_suffixed           = classes().that(new IsInServicePackage())
         .should()
         .haveSimpleNameEndingWith("Service");
 
