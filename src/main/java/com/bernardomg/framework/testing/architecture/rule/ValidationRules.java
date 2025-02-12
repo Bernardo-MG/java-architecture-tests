@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2024 the original author or authors.
+ * Copyright (c) 2024-2025 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,8 @@ package com.bernardomg.framework.testing.architecture.rule;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
-import com.bernardomg.framework.testing.architecture.predicates.Predicates;
+import com.bernardomg.framework.testing.architecture.predicates.IsValidatorClass;
+import com.bernardomg.framework.testing.architecture.predicates.IsValidatorRuleClass;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
@@ -39,8 +40,7 @@ public final class ValidationRules {
      * Validator rules should be in the validation package.
      */
     @ArchTest
-    static final ArchRule validator_rules_should_be_in_validation_package = classes()
-        .that(Predicates.areValidatorRuleClasses())
+    static final ArchRule validator_rules_should_be_in_validation_package = classes().that(new IsValidatorRuleClass())
         .should()
         .resideInAPackage("..validation..")
         .allowEmptyShould(true);
@@ -49,8 +49,7 @@ public final class ValidationRules {
      * Validator rules should be suffixed.
      */
     @ArchTest
-    static final ArchRule validator_rules_should_be_suffixed              = classes()
-        .that(Predicates.areValidatorRuleClasses())
+    static final ArchRule validator_rules_should_be_suffixed              = classes().that(new IsValidatorRuleClass())
         .should()
         .haveSimpleNameEndingWith("Rule")
         .allowEmptyShould(true);
@@ -59,8 +58,7 @@ public final class ValidationRules {
      * Validators should be in a validation package.
      */
     @ArchTest
-    static final ArchRule validators_should_be_in_validation_package      = classes()
-        .that(Predicates.areValidatorClasses())
+    static final ArchRule validators_should_be_in_validation_package      = classes().that(new IsValidatorClass())
         .should()
         .resideInAPackage("..validation..")
         .allowEmptyShould(true);
@@ -69,8 +67,7 @@ public final class ValidationRules {
      * Validators should be suffixed.
      */
     @ArchTest
-    static final ArchRule validators_should_be_suffixed                   = classes()
-        .that(Predicates.areValidatorClasses())
+    static final ArchRule validators_should_be_suffixed                   = classes().that(new IsValidatorClass())
         .should()
         .haveSimpleNameEndingWith("Validator")
         .allowEmptyShould(true);

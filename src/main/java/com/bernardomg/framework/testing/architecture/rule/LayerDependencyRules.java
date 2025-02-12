@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2024 the original author or authors.
+ * Copyright (c) 2024-2025 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,36 +24,27 @@
 
 package com.bernardomg.framework.testing.architecture.rule;
 
-import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
-import com.bernardomg.framework.testing.architecture.predicates.Predicates;
+import com.bernardomg.framework.testing.architecture.predicates.IsInServicePackage;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
 /**
- * Configuration rules.
+ * Layer dependency rules.
  */
-public final class ConfigurationRules {
+public final class LayerDependencyRules {
 
     /**
-     * Configuration should be in the configuration package.
+     * Log4j utils are not imported.
      */
     @ArchTest
-    static final ArchRule configuration_should_be_in_configuration_package = classes()
-        .that(Predicates.areConfigurationClasses())
+    static final ArchRule services_not_import_spring_data = noClasses().that(new IsInServicePackage())
         .should()
-        .resideInAPackage("..configuration..");
+        .dependOnClassesThat()
+        .resideInAnyPackage("org.springframework.data..");
 
-    /**
-     * Configuration classes should be suffixed.
-     */
-    @ArchTest
-    static final ArchRule configuration_should_be_suffixed                 = classes()
-        .that(Predicates.areConfigurationClasses())
-        .should()
-        .haveSimpleNameEndingWith("Configuration");
-
-    private ConfigurationRules() {
+    private LayerDependencyRules() {
         super();
     }
 

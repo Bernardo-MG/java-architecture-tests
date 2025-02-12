@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2024 the original author or authors.
+ * Copyright (c) 2024-2025 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,8 @@ import static com.tngtech.archunit.lang.conditions.ArchConditions.not;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.methods;
 
-import com.bernardomg.framework.testing.architecture.predicates.Predicates;
+import com.bernardomg.framework.testing.architecture.predicates.springframework.IsRepositoryNotSpringClass;
+import com.bernardomg.framework.testing.architecture.predicates.springframework.IsSpringRepositoryClass;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
@@ -43,7 +44,7 @@ public final class RepositoryRules {
      */
     @ArchTest
     static final ArchRule jpa_repositories_should_be_prefixed                            = classes()
-        .that(Predicates.areRepositoryClasses())
+        .that(new IsRepositoryNotSpringClass())
         .and()
         .resideInAPackage("..adapter.inbound.jpa.repository..")
         .should()
@@ -54,7 +55,7 @@ public final class RepositoryRules {
      */
     @ArchTest
     static final ArchRule repositories_interfaces_should_be_in_domain_repository_package = classes()
-        .that(Predicates.areRepositoryClasses())
+        .that(new IsRepositoryNotSpringClass())
         .and()
         .areInterfaces()
         .should()
@@ -78,7 +79,7 @@ public final class RepositoryRules {
      */
     @ArchTest
     static final ArchRule spring_repositories_should_be_in_jpa_repository_package        = classes()
-        .that(Predicates.areSpringRepositoryClasses())
+        .that(new IsSpringRepositoryClass())
         .should()
         .resideInAPackage("..adapter.inbound.jpa.repository..");
 
@@ -87,7 +88,7 @@ public final class RepositoryRules {
      */
     @ArchTest
     static final ArchRule spring_repositories_should_be_suffixed                         = classes()
-        .that(Predicates.areSpringRepositoryClasses())
+        .that(new IsSpringRepositoryClass())
         .should()
         .haveSimpleNameEndingWith("SpringRepository");
 
@@ -96,7 +97,7 @@ public final class RepositoryRules {
      */
     @ArchTest
     static final ArchRule spring_repositories_should_no_have_find_one                    = methods().that()
-        .areDeclaredInClassesThat(Predicates.areSpringRepositoryClasses())
+        .areDeclaredInClassesThat(new IsSpringRepositoryClass())
         .and()
         .arePublic()
         .should(not(haveNameStartingWith("findOne")));

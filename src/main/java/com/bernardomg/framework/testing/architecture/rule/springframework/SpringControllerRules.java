@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2024 the original author or authors.
+ * Copyright (c) 2024-2025 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,25 +22,24 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.framework.testing.architecture.rule;
+package com.bernardomg.framework.testing.architecture.rule.springframework;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
-import com.bernardomg.framework.testing.architecture.predicates.Predicates;
+import com.bernardomg.framework.testing.architecture.predicates.springframework.IsSpringControllerClass;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
 /**
  * Controller rules.
  */
-public final class ControllerRules {
+public final class SpringControllerRules {
 
     /**
      * Controllers should be in a controller package.
      */
     @ArchTest
-    static final ArchRule controllers_should_be_in_controller_package = classes()
-        .that(Predicates.areControllerClasses())
+    static final ArchRule controllers_should_be_in_controller_package = classes().that(new IsSpringControllerClass())
         .should()
         .resideInAPackage("..adapter.outbound.rest.controller..");
 
@@ -48,12 +47,11 @@ public final class ControllerRules {
      * Controllers should be suffixed.
      */
     @ArchTest
-    static final ArchRule controllers_should_be_suffixed              = classes()
-        .that(Predicates.areControllerClasses())
+    static final ArchRule controllers_should_be_suffixed              = classes().that(new IsSpringControllerClass())
         .should()
         .haveSimpleNameEndingWith("Controller");
 
-    private ControllerRules() {
+    private SpringControllerRules() {
         super();
     }
 

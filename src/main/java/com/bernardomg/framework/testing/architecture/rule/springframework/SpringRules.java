@@ -22,49 +22,57 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.framework.testing.architecture.rule;
+package com.bernardomg.framework.testing.architecture.rule.springframework;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 import com.bernardomg.framework.testing.architecture.predicates.IsInServicePackage;
+import com.bernardomg.framework.testing.architecture.predicates.springframework.IsRepositoryNotSpringClass;
+import com.bernardomg.framework.testing.architecture.predicates.springframework.IsSpringConfigurationClass;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
 /**
- * Service rules.
+ * Spring framework rules.
  */
-public final class ServiceRules {
+public final class SpringRules {
 
     /**
-     * Services should not use the Spring annotation.
-     * <p>
-     * TODO: check if this can be recovered in another rules suite
-     */
-    // @ArchTest
-    // static final ArchRule services_should_not_be_annotated_with_spring =
-    // classes().that(Predicates.areServiceClasses())
-    // .and()
-    // .areNotInterfaces()
-    // .should()
-    // .notBeAnnotatedWith(Service.class);
-
-    /**
-     * TODO: the predicate already checks this is in a service package.
+     * Configuration should be in the configuration package.
      */
     @ArchTest
-    static final ArchRule services_should_be_in_service_package = classes().that(new IsInServicePackage())
+    static final ArchRule configuration_should_be_in_configuration_package              = classes()
+        .that(new IsSpringConfigurationClass())
         .should()
-        .resideInAPackage("..service..");
+        .resideInAPackage("..configuration..");
 
     /**
-     * Services should be suffixed.
+     * Configuration classes should be suffixed.
      */
     @ArchTest
-    static final ArchRule services_should_be_suffixed           = classes().that(new IsInServicePackage())
+    static final ArchRule configuration_should_be_suffixed                              = classes()
+        .that(new IsSpringConfigurationClass())
         .should()
-        .haveSimpleNameEndingWith("Service");
+        .haveSimpleNameEndingWith("Configuration");
 
-    private ServiceRules() {
+    @ArchTest
+    static final ArchRule domain_repository_interfaces_should_not_depend_on_spring_data = noClasses()
+        .that(new IsRepositoryNotSpringClass())
+        .and()
+        .areInterfaces()
+        .should()
+        .dependOnClassesThat()
+        .resideInAnyPackage("org.springframework.data.domain..");
+
+    @ArchTest
+    static final ArchRule services_should_not_depend_on_spring_data                     = noClasses()
+        .that(new IsInServicePackage())
+        .should()
+        .dependOnClassesThat()
+        .resideInAnyPackage("org.springframework.data.domain..");
+
+    private SpringRules() {
         super();
     }
 
