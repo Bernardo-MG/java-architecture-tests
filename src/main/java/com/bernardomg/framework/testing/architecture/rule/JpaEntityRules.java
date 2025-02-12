@@ -29,15 +29,17 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.fields;
 
 import java.io.Serializable;
 
+import com.bernardomg.framework.testing.architecture.condition.BeAnnotatedWithTableOnClassOrSuperclass;
+import com.bernardomg.framework.testing.architecture.predicates.IsAbstractClass;
 import com.bernardomg.framework.testing.architecture.predicates.IsJpaAnnotatedClass;
 import com.bernardomg.framework.testing.architecture.predicates.IsJpaAnnotation;
+import com.tngtech.archunit.base.DescribedPredicate;
 import com.tngtech.archunit.core.domain.JavaModifier;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
 /**
@@ -65,8 +67,7 @@ public final class JpaEntityRules {
         .doNotHaveModifier(JavaModifier.ABSTRACT)
         .should()
         .beAnnotatedWith(Entity.class)
-        .andShould()
-        .beAnnotatedWith(Table.class)
+        .andShould(new BeAnnotatedWithTableOnClassOrSuperclass())
         .orShould()
         .beAnnotatedWith(Embeddable.class);
 
@@ -82,7 +83,8 @@ public final class JpaEntityRules {
      * JPA entities should be serializable.
      */
     @ArchTest
-    static final ArchRule jpa_entities_should_be_serializable     = classes().that(new IsJpaAnnotatedClass())
+    static final ArchRule jpa_entities_should_be_serializable     = classes().that(new IsJpaAnnotatedClass()
+        .and(DescribedPredicate.not(new IsAbstractClass())))
         .and()
         .doNotHaveModifier(JavaModifier.ABSTRACT)
         .should()
