@@ -29,13 +29,13 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.fields;
 
 import java.io.Serializable;
 
+import com.bernardomg.framework.testing.architecture.condition.BeAnnotatedWithTableOnClassOrSuperclass;
 import com.bernardomg.framework.testing.architecture.predicates.Predicates;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
 /**
@@ -61,8 +61,7 @@ public final class JpaEntityRules {
     static final ArchRule jpa_entities_should_be_annotated        = classes().that(Predicates.areJpaEntitiesClasses())
         .should()
         .beAnnotatedWith(Entity.class)
-        .andShould()
-        .beAnnotatedWith(Table.class)
+        .andShould(new BeAnnotatedWithTableOnClassOrSuperclass())
         .orShould()
         .beAnnotatedWith(Embeddable.class);
 
