@@ -20,7 +20,7 @@ public final class BeAnnotatedWithTableOnClassOrSuperclass extends ArchCondition
     @Override
     public final void check(final JavaClass javaClass, final ConditionEvents events) {
         final boolean hasTableAnnotation;
-        final String message;
+        final String  message;
 
         hasTableAnnotation = javaClass.isAnnotatedWith(Table.class) || javaClass.getAllRawSuperclasses()
             .stream()

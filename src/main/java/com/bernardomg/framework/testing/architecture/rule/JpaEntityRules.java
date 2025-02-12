@@ -30,7 +30,9 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.fields;
 import java.io.Serializable;
 
 import com.bernardomg.framework.testing.architecture.condition.BeAnnotatedWithTableOnClassOrSuperclass;
+import com.bernardomg.framework.testing.architecture.predicates.IsAbstractClass;
 import com.bernardomg.framework.testing.architecture.predicates.Predicates;
+import com.tngtech.archunit.base.DescribedPredicate;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
@@ -77,7 +79,8 @@ public final class JpaEntityRules {
      * JPA entities should be serializable.
      */
     @ArchTest
-    static final ArchRule jpa_entities_should_be_serializable     = classes().that(Predicates.areJpaEntitiesClasses())
+    static final ArchRule jpa_entities_should_be_serializable     = classes().that(Predicates.areJpaEntitiesClasses()
+        .and(DescribedPredicate.not(new IsAbstractClass())))
         .should()
         .beAssignableTo(Serializable.class);
 
