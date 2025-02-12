@@ -20,7 +20,10 @@
                 Disabled service test case.
             </action>
         </release>
-        <release version="1.1.0" date="2024-10-08" description="">
+        <release version="1.0.3" date="2024-10-25" description="Updated dependencies">
+            <action dev="bmg" type="update">
+                Updated dependencies.
+            </action>
         </release>
     </body>
 </document>
