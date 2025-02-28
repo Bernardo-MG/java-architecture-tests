@@ -41,7 +41,8 @@ public final class SpringControllerRules {
     @ArchTest
     static final ArchRule controllers_should_be_in_controller_package = classes().that(new IsSpringControllerClass())
         .should()
-        .resideInAPackage("..adapter.outbound.rest.controller..");
+        .resideInAPackage("..adapter.outbound.rest.controller..")
+        .allowEmptyShould(true);
 
     /**
      * Controllers should be suffixed.
@@ -49,7 +50,8 @@ public final class SpringControllerRules {
     @ArchTest
     static final ArchRule controllers_should_be_suffixed              = classes().that(new IsSpringControllerClass())
         .should()
-        .haveSimpleNameEndingWith("Controller");
+        .haveSimpleNameEndingWith("Controller")
+        .allowEmptyShould(true);
 
     private SpringControllerRules() {
         super();
