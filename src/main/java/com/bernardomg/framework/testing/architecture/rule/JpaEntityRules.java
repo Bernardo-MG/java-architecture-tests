@@ -83,8 +83,8 @@ public final class JpaEntityRules {
      * JPA entities should be serializable.
      */
     @ArchTest
-    static final ArchRule jpa_entities_should_be_serializable     = classes().that(new IsJpaAnnotatedClass()
-        .and(DescribedPredicate.not(new IsAbstractClass())))
+    static final ArchRule jpa_entities_should_be_serializable     = classes()
+        .that(new IsJpaAnnotatedClass().and(DescribedPredicate.not(new IsAbstractClass())))
         .and()
         .doNotHaveModifier(JavaModifier.ABSTRACT)
         .should()

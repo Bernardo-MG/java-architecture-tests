@@ -30,5 +30,13 @@
                 Corrected rules.
             </action>
         </release>
+        <release version="1.0.5" date="2025-02-12" description="Updated deployment">
+            <action dev="bmg" type="update">
+                Updated deployment.
+            </action>
+            <action dev="bmg" type="update">
+                Updated dependencies.
+            </action>
+        </release>
     </body>
 </document>

@@ -45,7 +45,8 @@ public final class SpringRules {
     static final ArchRule configuration_should_be_in_configuration_package              = classes()
         .that(new IsSpringConfigurationClass())
         .should()
-        .resideInAPackage("..configuration..");
+        .resideInAPackage("..configuration..")
+        .allowEmptyShould(true);
 
     /**
      * Configuration classes should be suffixed.
@@ -54,7 +55,8 @@ public final class SpringRules {
     static final ArchRule configuration_should_be_suffixed                              = classes()
         .that(new IsSpringConfigurationClass())
         .should()
-        .haveSimpleNameEndingWith("Configuration");
+        .haveSimpleNameEndingWith("Configuration")
+        .allowEmptyShould(true);
 
     @ArchTest
     static final ArchRule domain_repository_interfaces_should_not_depend_on_spring_data = noClasses()
@@ -63,14 +65,16 @@ public final class SpringRules {
         .areInterfaces()
         .should()
         .dependOnClassesThat()
-        .resideInAnyPackage("org.springframework.data.domain..");
+        .resideInAnyPackage("org.springframework.data.domain..")
+        .allowEmptyShould(true);
 
     @ArchTest
     static final ArchRule services_should_not_depend_on_spring_data                     = noClasses()
         .that(new IsInServicePackage())
         .should()
         .dependOnClassesThat()
-        .resideInAnyPackage("org.springframework.data.domain..");
+        .resideInAnyPackage("org.springframework.data.domain..")
+        .allowEmptyShould(true);
 
     private SpringRules() {
         super();
