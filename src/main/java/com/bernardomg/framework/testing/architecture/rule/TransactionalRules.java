@@ -47,7 +47,8 @@ public final class TransactionalRules {
     @ArchTest
     static final ArchRule controllers_should_not_be_transactional = classes().that(new IsSpringControllerClass())
         .should()
-        .notBeAnnotatedWith(Transactional.class);
+        .notBeAnnotatedWith(Transactional.class)
+        .because("controllers should not be transactional");
 
     /**
      * There should be no direct call to transactional methods.
@@ -55,7 +56,8 @@ public final class TransactionalRules {
     @ArchTest
     static final ArchRule no_direct_calls_to_transactional_method = ProxyRules
         .no_classes_should_directly_call_other_methods_declared_in_the_same_class_that_are_annotated_with(
-            Transactional.class);
+            Transactional.class)
+        .because("direct calls skip transactions");
 
     /**
      * Repositories should be transactional.
@@ -67,7 +69,8 @@ public final class TransactionalRules {
         .and()
         .areNotInterfaces()
         .should()
-        .beAnnotatedWith(Transactional.class);
+        .beAnnotatedWith(Transactional.class)
+        .because("repositories should be annotated as transactional");
 
     /**
      * Services should be transactional.
@@ -79,7 +82,8 @@ public final class TransactionalRules {
         .and()
         .areNotInterfaces()
         .should()
-        .beAnnotatedWith(Transactional.class);
+        .beAnnotatedWith(Transactional.class)
+        .because("services should be annotated as transactional");
 
     private TransactionalRules() {
         super();

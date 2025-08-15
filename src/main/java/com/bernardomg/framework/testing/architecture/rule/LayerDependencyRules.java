@@ -42,7 +42,8 @@ public final class LayerDependencyRules {
     static final ArchRule services_not_import_spring_data = noClasses().that(new IsInServicePackage())
         .should()
         .dependOnClassesThat()
-        .resideInAnyPackage("org.springframework.data..");
+        .resideInAnyPackage("org.springframework.data..")
+        .because("services should not import from Spring data");
 
     private LayerDependencyRules() {
         super();

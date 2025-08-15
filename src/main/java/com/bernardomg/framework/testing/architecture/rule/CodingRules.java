@@ -93,7 +93,8 @@ public final class CodingRules {
         .andShould()
         .beStatic()
         .andShould()
-        .beFinal();
+        .beFinal()
+        .because("loggers should be immutable");
 
     private CodingRules() {
         super();

@@ -40,37 +40,41 @@ public final class ValidationRules {
      * Validator rules should be in the validation package.
      */
     @ArchTest
-    static final ArchRule validator_rules_should_be_in_validation_package = classes().that(new IsValidatorRuleClass())
+    static final ArchRule validation_rules_should_be_in_validation_package = classes().that(new IsValidatorRuleClass())
         .should()
         .resideInAPackage("..validation..")
-        .allowEmptyShould(true);
+        .allowEmptyShould(true)
+        .because("validation rules should be in the validation package");
 
     /**
      * Validator rules should be suffixed.
      */
     @ArchTest
-    static final ArchRule validator_rules_should_be_suffixed              = classes().that(new IsValidatorRuleClass())
+    static final ArchRule validation_rules_should_be_suffixed              = classes().that(new IsValidatorRuleClass())
         .should()
         .haveSimpleNameEndingWith("Rule")
-        .allowEmptyShould(true);
+        .allowEmptyShould(true)
+        .because("validation rules should be suffixed with 'Rule'");
 
     /**
      * Validators should be in a validation package.
      */
     @ArchTest
-    static final ArchRule validators_should_be_in_validation_package      = classes().that(new IsValidatorClass())
+    static final ArchRule validators_should_be_in_validation_package       = classes().that(new IsValidatorClass())
         .should()
         .resideInAPackage("..validation..")
-        .allowEmptyShould(true);
+        .allowEmptyShould(true)
+        .because("validators should be in the validation package");
 
     /**
      * Validators should be suffixed.
      */
     @ArchTest
-    static final ArchRule validators_should_be_suffixed                   = classes().that(new IsValidatorClass())
+    static final ArchRule validators_should_be_suffixed                    = classes().that(new IsValidatorClass())
         .should()
         .haveSimpleNameEndingWith("Validator")
-        .allowEmptyShould(true);
+        .allowEmptyShould(true)
+        .because("validators should be suffixed with 'Validator'");
 
     private ValidationRules() {
         super();

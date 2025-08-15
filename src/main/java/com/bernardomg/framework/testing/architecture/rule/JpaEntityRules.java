@@ -59,7 +59,8 @@ public final class JpaEntityRules {
         .beAnnotatedWith(Entity.class)
         .andShould(new BeAnnotatedWithTableOnClassOrSuperclass())
         .orShould()
-        .beAnnotatedWith(Embeddable.class);
+        .beAnnotatedWith(Embeddable.class)
+        .because("entities should be annotated as tables");
 
     /**
      * JPA entities should be in a model package.
@@ -67,7 +68,8 @@ public final class JpaEntityRules {
     @ArchTest
     static final ArchRule jpa_entities_should_be_in_model_package   = classes().that(new IsJpaAnnotatedClass())
         .should()
-        .resideInAPackage("..adapter.inbound.jpa.model..");
+        .resideInAPackage("..adapter.inbound.jpa.model..")
+        .because("entities should be in the JPA model package");
 
     /**
      * JPA entities should be serializable.
@@ -78,7 +80,8 @@ public final class JpaEntityRules {
         .and()
         .doNotHaveModifier(JavaModifier.ABSTRACT)
         .should()
-        .beAssignableTo(Serializable.class);
+        .beAssignableTo(Serializable.class)
+        .because("entities should be serializable");
 
     /**
      * JPA entities should be suffixed.
@@ -87,7 +90,8 @@ public final class JpaEntityRules {
     static final ArchRule jpa_entities_should_be_suffixed           = classes().that()
         .areAnnotatedWith(Entity.class)
         .should()
-        .haveSimpleNameEndingWith("Entity");
+        .haveSimpleNameEndingWith("Entity")
+        .because("entities should have the 'Entity' suffix");
 
     /**
      * JPA entities should only use Instant for date/time.
@@ -117,7 +121,7 @@ public final class JpaEntityRules {
         .notHaveRawType(java.time.YearMonth.class)
         .andShould()
         .notHaveRawType(java.time.MonthDay.class)
-        .because("Only java.time.Instant is allowed for representing date/time in entities.");
+        .because("only java.time.Instant is allowed for representing date/time in entities");
 
     /**
      * JPA entity fields should be annotated.
@@ -128,7 +132,8 @@ public final class JpaEntityRules {
         .and()
         .areNotStatic()
         .should()
-        .beAnnotatedWith(new IsJpaAnnotation());
+        .beAnnotatedWith(new IsJpaAnnotation())
+        .because("entity fields should be annotated");
 
     /**
      * Serial UID should be transient.
@@ -139,7 +144,8 @@ public final class JpaEntityRules {
         .and()
         .haveName("serialVersionUID")
         .should()
-        .beAnnotatedWith(Transient.class);
+        .beAnnotatedWith(Transient.class)
+        .because("entities serialization version should be transient");
 
     private JpaEntityRules() {
         super();
