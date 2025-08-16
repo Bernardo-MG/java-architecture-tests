@@ -75,6 +75,20 @@ public final class RepositoryRules {
     // .notBeAnnotatedWith(Repository.class);
 
     /**
+     * Repository methods with a Pagination parameter must return a Page.
+     * <p>
+     * TODO: requires the data API
+     */
+    // @ArchTest
+    // static final ArchRule repository_methods_with_pagination_should_return_page =
+    // methods()
+    // .that().areDeclaredInClassesThat(new IsRepositoryNotSpringClass())
+    // .and().arePublic()
+    // .and().haveRawParameterTypes(Pagination.class)
+    // .should().haveRawReturnType(Page.class)
+    // .because("repository methods with a Pagination parameter should return a Page");
+
+    /**
      * Spring repositories should be in a JPA package.
      * <p>
      * TODO: this only should affect JPA repositories
