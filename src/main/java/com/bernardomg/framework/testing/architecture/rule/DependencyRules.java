@@ -54,7 +54,8 @@ public final class DependencyRules {
     @ArchTest
     static final ArchRule not_import_log4j_utils = noClasses().should()
         .dependOnClassesThat()
-        .resideInAnyPackage("org.apache.logging.log4j.util..");
+        .resideInAnyPackage("org.apache.logging.log4j.util..")
+        .because("shouldn't use internal utils from external libraries");
 
     private DependencyRules() {
         super();

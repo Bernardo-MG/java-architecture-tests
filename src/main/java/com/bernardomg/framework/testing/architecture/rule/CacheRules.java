@@ -67,7 +67,8 @@ public final class CacheRules {
      */
     @ArchTest
     static final ArchRule no_direct_calls_to_cacheable_method                    = ProxyRules
-        .no_classes_should_directly_call_other_methods_declared_in_the_same_class_that(are(new IsSpringCachedMethod()));
+        .no_classes_should_directly_call_other_methods_declared_in_the_same_class_that(are(new IsSpringCachedMethod()))
+        .because("direct calls skip caching");
 
     /**
      * Services should not have caches.
@@ -78,7 +79,8 @@ public final class CacheRules {
         .and()
         .areNotInterfaces()
         .should()
-        .notBeAnnotatedWith(new IsSpringCacheAnnotation());
+        .notBeAnnotatedWith(new IsSpringCacheAnnotation())
+        .because("service layer shouldn't be cached");
 
     private CacheRules() {
         super();

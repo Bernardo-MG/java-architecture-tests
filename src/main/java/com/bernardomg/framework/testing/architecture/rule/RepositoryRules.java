@@ -48,7 +48,8 @@ public final class RepositoryRules {
         .and()
         .resideInAPackage("..adapter.inbound.jpa.repository..")
         .should()
-        .haveSimpleNameStartingWith("Jpa");
+        .haveSimpleNameStartingWith("Jpa")
+        .because("JPA repositories should have the 'Jpa' prefix");
 
     /**
      * Repository interfaces should be in the domain package.
@@ -59,7 +60,8 @@ public final class RepositoryRules {
         .and()
         .areInterfaces()
         .should()
-        .resideInAPackage("..domain.repository..");
+        .resideInAPackage("..domain.repository..")
+        .because("repository interfaces should be in the domain repository package");
 
     /**
      * Repositories should not use the Spring annotation.
@@ -73,6 +75,20 @@ public final class RepositoryRules {
     // .notBeAnnotatedWith(Repository.class);
 
     /**
+     * Repository methods with a Pagination parameter must return a Page.
+     * <p>
+     * TODO: requires the data API
+     */
+    // @ArchTest
+    // static final ArchRule repository_methods_with_pagination_should_return_page =
+    // methods()
+    // .that().areDeclaredInClassesThat(new IsRepositoryNotSpringClass())
+    // .and().arePublic()
+    // .and().haveRawParameterTypes(Pagination.class)
+    // .should().haveRawReturnType(Page.class)
+    // .because("repository methods with a Pagination parameter should return a Page");
+
+    /**
      * Spring repositories should be in a JPA package.
      * <p>
      * TODO: this only should affect JPA repositories
@@ -81,7 +97,8 @@ public final class RepositoryRules {
     static final ArchRule spring_repositories_should_be_in_jpa_repository_package        = classes()
         .that(new IsSpringRepositoryClass())
         .should()
-        .resideInAPackage("..adapter.inbound.jpa.repository..");
+        .resideInAPackage("..adapter.inbound.jpa.repository..")
+        .because("Spring repositories should be in the JPA repository package");
 
     /**
      * Spring repositories should be suffixed.
@@ -90,7 +107,8 @@ public final class RepositoryRules {
     static final ArchRule spring_repositories_should_be_suffixed                         = classes()
         .that(new IsSpringRepositoryClass())
         .should()
-        .haveSimpleNameEndingWith("SpringRepository");
+        .haveSimpleNameEndingWith("SpringRepository")
+        .because("Spring repositories should be suffixed with 'SpringRepository'");
 
     /**
      * Spring repositories should not have a findOne method.
@@ -100,7 +118,8 @@ public final class RepositoryRules {
         .areDeclaredInClassesThat(new IsSpringRepositoryClass())
         .and()
         .arePublic()
-        .should(not(haveNameStartingWith("findOne")));
+        .should(not(haveNameStartingWith("findOne")))
+        .because("repositories should not have methods starting with 'findOne'");
 
     private RepositoryRules() {
         super();

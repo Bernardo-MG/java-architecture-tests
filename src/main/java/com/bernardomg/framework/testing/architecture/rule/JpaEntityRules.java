@@ -28,6 +28,7 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.fields;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 import com.bernardomg.framework.testing.architecture.condition.BeAnnotatedWithTableOnClassOrSuperclass;
 import com.bernardomg.framework.testing.architecture.predicates.IsAbstractClass;
@@ -48,67 +49,103 @@ import jakarta.persistence.Transient;
 public final class JpaEntityRules {
 
     /**
-     * Serial UID should be transient.
-     */
-    @ArchTest
-    static final ArchRule entity_serial_uid_should_be_transient   = fields().that()
-        .areDeclaredInClassesThat(new IsJpaAnnotatedClass())
-        .and()
-        .haveName("serialVersionUID")
-        .should()
-        .beAnnotatedWith(Transient.class);
-
-    /**
      * JPA entities should be annotated.
      */
     @ArchTest
-    static final ArchRule jpa_entities_should_be_annotated        = classes().that(new IsJpaAnnotatedClass())
+    static final ArchRule jpa_entities_should_be_annotated          = classes().that(new IsJpaAnnotatedClass())
         .and()
         .doNotHaveModifier(JavaModifier.ABSTRACT)
         .should()
         .beAnnotatedWith(Entity.class)
         .andShould(new BeAnnotatedWithTableOnClassOrSuperclass())
         .orShould()
-        .beAnnotatedWith(Embeddable.class);
+        .beAnnotatedWith(Embeddable.class)
+        .because("entities should be annotated as tables");
 
     /**
      * JPA entities should be in a model package.
      */
     @ArchTest
-    static final ArchRule jpa_entities_should_be_in_model_package = classes().that(new IsJpaAnnotatedClass())
+    static final ArchRule jpa_entities_should_be_in_model_package   = classes().that(new IsJpaAnnotatedClass())
         .should()
-        .resideInAPackage("..adapter.inbound.jpa.model..");
+        .resideInAPackage("..adapter.inbound.jpa.model..")
+        .because("entities should be in the JPA model package");
 
     /**
      * JPA entities should be serializable.
      */
     @ArchTest
-    static final ArchRule jpa_entities_should_be_serializable     = classes()
+    static final ArchRule jpa_entities_should_be_serializable       = classes()
         .that(new IsJpaAnnotatedClass().and(DescribedPredicate.not(new IsAbstractClass())))
         .and()
         .doNotHaveModifier(JavaModifier.ABSTRACT)
         .should()
-        .beAssignableTo(Serializable.class);
+        .beAssignableTo(Serializable.class)
+        .because("entities should be serializable");
 
     /**
      * JPA entities should be suffixed.
      */
     @ArchTest
-    static final ArchRule jpa_entities_should_be_suffixed         = classes().that()
+    static final ArchRule jpa_entities_should_be_suffixed           = classes().that()
         .areAnnotatedWith(Entity.class)
         .should()
-        .haveSimpleNameEndingWith("Entity");
+        .haveSimpleNameEndingWith("Entity")
+        .because("entities should have the 'Entity' suffix");
+
+    /**
+     * JPA entities should only use Instant for date/time.
+     */
+    @ArchTest
+    static final ArchRule jpa_entities_should_only_use_instant      = fields().that()
+        .areDeclaredInClassesThat(new IsJpaAnnotatedClass())
+        .and()
+        .areNotStatic()
+        .and()
+        .areNotFinal()
+        .should()
+        .haveRawType(Instant.class)
+        .orShould()
+        .notHaveRawType(java.util.Date.class)
+        .andShould()
+        .notHaveRawType(java.sql.Date.class)
+        .andShould()
+        .notHaveRawType(java.time.LocalDate.class)
+        .andShould()
+        .notHaveRawType(java.time.LocalDateTime.class)
+        .andShould()
+        .notHaveRawType(java.time.ZonedDateTime.class)
+        .andShould()
+        .notHaveRawType(java.time.Year.class)
+        .andShould()
+        .notHaveRawType(java.time.YearMonth.class)
+        .andShould()
+        .notHaveRawType(java.time.MonthDay.class)
+        .because("only java.time.Instant is allowed for representing date/time in entities");
 
     /**
      * JPA entity fields should be annotated.
      */
     @ArchTest
-    static final ArchRule jpa_entity_fields_should_be_annotated   = fields().that()
+    static final ArchRule jpa_entity_fields_should_be_annotated     = fields().that()
         .areDeclaredInClassesThat(new IsJpaAnnotatedClass())
         .and()
         .areNotStatic()
         .should()
-        .beAnnotatedWith(new IsJpaAnnotation());
+        .beAnnotatedWith(new IsJpaAnnotation())
+        .because("entity fields should be annotated");
+
+    /**
+     * Serial UID should be transient.
+     */
+    @ArchTest
+    static final ArchRule jpa_entity_serial_uid_should_be_transient = fields().that()
+        .areDeclaredInClassesThat(new IsJpaAnnotatedClass())
+        .and()
+        .haveName("serialVersionUID")
+        .should()
+        .beAnnotatedWith(Transient.class)
+        .because("entities serialization version should be transient");
 
     private JpaEntityRules() {
         super();

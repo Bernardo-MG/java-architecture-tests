@@ -54,7 +54,8 @@ public final class ServiceRules {
     @ArchTest
     static final ArchRule services_should_be_in_service_package = classes().that(new IsInServicePackage())
         .should()
-        .resideInAPackage("..service..");
+        .resideInAPackage("..service..")
+        .because("services should be in the service package");
 
     /**
      * Services should be suffixed.
@@ -62,7 +63,8 @@ public final class ServiceRules {
     @ArchTest
     static final ArchRule services_should_be_suffixed           = classes().that(new IsInServicePackage())
         .should()
-        .haveSimpleNameEndingWith("Service");
+        .haveSimpleNameEndingWith("Service")
+        .because("services should be suffixed with 'Service'");
 
     private ServiceRules() {
         super();

@@ -38,5 +38,10 @@
                 Updated dependencies.
             </action>
         </release>
+        <release version="1.0.6" date="2025-08-16" description="New entity rule">
+            <action dev="bmg" type="add">
+                Rule for entity dates.
+            </action>
+        </release>
     </body>
 </document>
