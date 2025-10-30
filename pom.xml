@@ -11,7 +11,7 @@
    <parent>
       <groupId>com.bernardomg.maven</groupId>
       <artifactId>base-pom</artifactId>
-      <version>1.5.11</version>
+      <version>1.5.12</version>
    </parent>
 
    <!-- ********************************************** -->
@@ -176,9 +176,9 @@
       <!-- ============================================== -->
       <archunit.version>1.4.1</archunit.version>
       <bernardomg.framework.validation.version>0.2.2</bernardomg.framework.validation.version>
-      <junit.version>5.13.1</junit.version>
-      <spring.boot.version>3.4.6</spring.boot.version>
-      <spring.data.version>2024.1.7</spring.data.version>
+      <junit.version>6.0.0</junit.version>
+      <spring.boot.version>3.5.6</spring.boot.version>
+      <spring.data.version>2025.0.5</spring.data.version>
       <!-- ============================================== -->
       <!-- ============ PLUGIN CONFIGURATION ============ -->
       <!-- ============================================== -->
