@@ -11,7 +11,7 @@
    <parent>
       <groupId>com.bernardomg.maven</groupId>
       <artifactId>base-pom</artifactId>
-      <version>1.5.11</version>
+      <version>1.5.12</version>
    </parent>
 
    <!-- ********************************************** -->
@@ -20,7 +20,7 @@
 
    <groupId>com.bernardomg.framework.testing</groupId>
    <artifactId>architecture-tests</artifactId>
-   <version>1.0.6</version>
+   <version>1.0.7</version>
    <packaging>jar</packaging>
 
    <name>Java Architecture Tests</name>
@@ -176,9 +176,9 @@
       <!-- ============================================== -->
       <archunit.version>1.4.1</archunit.version>
       <bernardomg.framework.validation.version>0.2.2</bernardomg.framework.validation.version>
-      <junit.version>5.13.1</junit.version>
-      <spring.boot.version>3.4.6</spring.boot.version>
-      <spring.data.version>2024.1.7</spring.data.version>
+      <junit.version>6.0.1</junit.version>
+      <spring.boot.version>3.5.9</spring.boot.version>
+      <spring.data.version>2025.1.1</spring.data.version>
       <!-- ============================================== -->
       <!-- ============ PLUGIN CONFIGURATION ============ -->
       <!-- ============================================== -->
@@ -238,6 +238,7 @@
          <groupId>com.bernardomg.framework</groupId>
          <artifactId>validation</artifactId>
          <version>${bernardomg.framework.validation.version}</version>
+         <scope>provided</scope>
       </dependency>
       <!-- ============================================== -->
       <!-- ================= ARCHUNIT =================== -->
