@@ -1,47 +1,52 @@
 <document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
-    <properties>
-        <title>Project Changes</title>
-        <author email="programming@bernardomg.com">Bernardo Martínez Garrido</author>
-    </properties>
-    <body>
-        <release version="1.0.0" date="2024-09-22" description="First release">
-            <action dev="bmg" type="add">
-                First release of the library.
-            </action>
-        </release>
-        <release version="1.0.1" date="2024-10-08" description="Disabled test case">
-            <action dev="bmg" type="update">
-                Disabled service test case.
-            </action>
-        </release>
-        <release version="1.0.2" date="2024-10-08" description="Disabled test case">
-            <action dev="bmg" type="update">
-                Disabled service test case.
-            </action>
-        </release>
-        <release version="1.0.3" date="2024-10-25" description="Updated dependencies">
-            <action dev="bmg" type="update">
-                Updated dependencies.
-            </action>
-        </release>
-        <release version="1.0.4" date="2025-02-12" description="Corrected rules">
-            <action dev="bmg" type="update">
-                Corrected rules.
-            </action>
-        </release>
-        <release version="1.0.5" date="2025-02-12" description="Updated deployment">
-            <action dev="bmg" type="update">
-                Updated deployment.
-            </action>
-            <action dev="bmg" type="update">
-                Updated dependencies.
-            </action>
-        </release>
-        <release version="1.0.6" date="2025-08-16" description="New entity rule">
-            <action dev="bmg" type="add">
-                Rule for entity dates.
-            </action>
-        </release>
-    </body>
+   xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
+   <properties>
+      <title>Project Changes</title>
+      <author email="programming@bernardomg.com">Bernardo Martínez Garrido</author>
+   </properties>
+   <body>
+      <release version="1.0.0" date="2024-09-22" description="First release">
+         <action dev="bmg" type="add">
+            First release of the library.
+         </action>
+      </release>
+      <release version="1.0.1" date="2024-10-08" description="Disabled test case">
+         <action dev="bmg" type="update">
+            Disabled service test case.
+         </action>
+      </release>
+      <release version="1.0.2" date="2024-10-08" description="Disabled test case">
+         <action dev="bmg" type="update">
+            Disabled service test case.
+         </action>
+      </release>
+      <release version="1.0.3" date="2024-10-25" description="Updated dependencies">
+         <action dev="bmg" type="update">
+            Updated dependencies.
+         </action>
+      </release>
+      <release version="1.0.4" date="2025-02-12" description="Corrected rules">
+         <action dev="bmg" type="update">
+            Corrected rules.
+         </action>
+      </release>
+      <release version="1.0.5" date="2025-02-12" description="Updated deployment">
+         <action dev="bmg" type="update">
+            Updated deployment.
+         </action>
+         <action dev="bmg" type="update">
+            Updated dependencies.
+         </action>
+      </release>
+      <release version="1.0.6" date="2025-08-16" description="New entity rule">
+         <action dev="bmg" type="add">
+            Rule for entity dates.
+         </action>
+      </release>
+      <release version="1.1.0" date="2025-08-16" description="New entity rule">
+         <action dev="bmg" type="add">
+            Rule for entity dates.
+         </action>
+      </release>
+   </body>
 </document>
