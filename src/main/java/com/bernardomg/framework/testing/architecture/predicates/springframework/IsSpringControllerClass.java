@@ -40,7 +40,7 @@ public final class IsSpringControllerClass extends DescribedPredicate<JavaClass>
 
     @Override
     public final boolean test(final JavaClass javaClass) {
-        return javaClass.isMetaAnnotatedWith(Controller.class);
+        return (!javaClass.isInterface()) && (javaClass.isMetaAnnotatedWith(Controller.class));
     }
 
 }
