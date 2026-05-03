@@ -43,6 +43,11 @@
             Rule for entity dates.
          </action>
       </release>
+      <release version="1.0.7" date="2026-01-02" description="Removed cache rules">
+         <action dev="bmg" type="remove">
+            Removed cache rules.
+         </action>
+      </release>
       <release version="1.0.8" date="2025-08-16" description="Updated rules">
          <action dev="bmg" type="add">
             Ignore controller interfaces.
