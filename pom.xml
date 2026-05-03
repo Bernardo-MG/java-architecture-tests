@@ -20,7 +20,7 @@
 
    <groupId>com.bernardomg.framework.testing</groupId>
    <artifactId>architecture-tests</artifactId>
-   <version>1.0.7</version>
+   <version>1.0.8</version>
    <packaging>jar</packaging>
 
    <name>Java Architecture Tests</name>
@@ -129,7 +129,6 @@
                   <configuration>
                      <publishingServerId>central</publishingServerId>
                      <autoPublish>true</autoPublish>
-                     <waitUntil>published</waitUntil>
                   </configuration>
                </plugin>
             </plugins>
@@ -174,11 +173,11 @@
       <!-- ============================================== -->
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
-      <archunit.version>1.4.1</archunit.version>
-      <bernardomg.framework.validation.version>0.2.2</bernardomg.framework.validation.version>
-      <junit.version>6.0.1</junit.version>
-      <spring.boot.version>3.5.9</spring.boot.version>
-      <spring.data.version>2025.1.1</spring.data.version>
+      <archunit.version>1.4.2</archunit.version>
+      <bernardomg.framework.validation.version>0.2.5</bernardomg.framework.validation.version>
+      <junit.version>6.0.3</junit.version>
+      <spring.boot.version>3.5.14</spring.boot.version>
+      <spring.data.version>2025.1.5</spring.data.version>
       <!-- ============================================== -->
       <!-- ============ PLUGIN CONFIGURATION ============ -->
       <!-- ============================================== -->
@@ -278,6 +277,11 @@
          <!-- JPA API -->
          <groupId>jakarta.persistence</groupId>
          <artifactId>jakarta.persistence-api</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>jakarta.transaction</groupId>
+         <artifactId>jakarta.transaction-api</artifactId>
          <scope>provided</scope>
       </dependency>
       <!-- ============================================== -->

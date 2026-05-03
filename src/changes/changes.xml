@@ -48,5 +48,13 @@
             Removed cache rules.
          </action>
       </release>
+      <release version="1.0.8" date="2025-08-16" description="Updated rules">
+         <action dev="bmg" type="add">
+            Ignore controller interfaces.
+         </action>
+         <action dev="bmg" type="add">
+            Handle Jakarta Transactional annotation.
+         </action>
+      </release>
    </body>
 </document>

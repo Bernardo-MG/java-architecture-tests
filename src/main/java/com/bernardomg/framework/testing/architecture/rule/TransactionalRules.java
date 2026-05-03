@@ -26,8 +26,6 @@ package com.bernardomg.framework.testing.architecture.rule;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import com.bernardomg.framework.testing.architecture.predicates.IsInServicePackage;
 import com.bernardomg.framework.testing.architecture.predicates.springframework.IsRepositoryNotSpringClass;
 import com.bernardomg.framework.testing.architecture.predicates.springframework.IsSpringControllerClass;
@@ -45,44 +43,57 @@ public final class TransactionalRules {
      * Controllers should not be transactional.
      */
     @ArchTest
-    static final ArchRule controllers_should_not_be_transactional = classes().that(new IsSpringControllerClass())
+    static final ArchRule controllers_should_not_be_transactional         = classes()
+        .that(new IsSpringControllerClass())
         .should()
-        .notBeAnnotatedWith(Transactional.class)
+        .notBeAnnotatedWith(org.springframework.transaction.annotation.Transactional.class)
+        .andShould()
+        .notBeAnnotatedWith(jakarta.transaction.Transactional.class)
         .because("controllers should not be transactional");
 
     /**
-     * There should be no direct call to transactional methods.
+     * There should be no direct call to Jakarta transactional methods.
      */
     @ArchTest
-    static final ArchRule no_direct_calls_to_transactional_method = ProxyRules
+    static final ArchRule no_direct_calls_to_jakarta_transactional_method = ProxyRules
         .no_classes_should_directly_call_other_methods_declared_in_the_same_class_that_are_annotated_with(
-            Transactional.class)
+            jakarta.transaction.Transactional.class)
+        .because("direct calls skip transactions");
+
+    /**
+     * There should be no direct call to Spring transactional methods.
+     */
+    @ArchTest
+    static final ArchRule no_direct_calls_to_spring_transactional_method  = ProxyRules
+        .no_classes_should_directly_call_other_methods_declared_in_the_same_class_that_are_annotated_with(
+            org.springframework.transaction.annotation.Transactional.class)
         .because("direct calls skip transactions");
 
     /**
      * Repositories should be transactional.
      */
     @ArchTest
-    static final ArchRule repositories_should_be_transactional    = classes().that(new IsRepositoryNotSpringClass())
+    static final ArchRule repositories_should_be_transactional            = classes()
+        .that(new IsRepositoryNotSpringClass())
         .and()
         .doNotHaveModifier(JavaModifier.ABSTRACT)
         .and()
         .areNotInterfaces()
         .should()
-        .beAnnotatedWith(Transactional.class)
+        .beAnnotatedWith(jakarta.transaction.Transactional.class)
         .because("repositories should be annotated as transactional");
 
     /**
      * Services should be transactional.
      */
     @ArchTest
-    static final ArchRule services_should_be_transactional        = classes().that(new IsInServicePackage())
+    static final ArchRule services_should_be_transactional                = classes().that(new IsInServicePackage())
         .and()
         .doNotHaveModifier(JavaModifier.ABSTRACT)
         .and()
         .areNotInterfaces()
         .should()
-        .beAnnotatedWith(Transactional.class)
+        .beAnnotatedWith(jakarta.transaction.Transactional.class)
         .because("services should be annotated as transactional");
 
     private TransactionalRules() {
