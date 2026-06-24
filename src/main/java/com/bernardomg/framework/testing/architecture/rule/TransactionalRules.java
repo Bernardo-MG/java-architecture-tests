@@ -73,15 +73,11 @@ public final class TransactionalRules {
      * Repositories should be transactional.
      */
     @ArchTest
-    static final ArchRule repositories_should_be_transactional            = classes()
+    static final ArchRule repositories_should_not_be_transactional        = classes()
         .that(new IsRepositoryNotSpringClass())
-        .and()
-        .doNotHaveModifier(JavaModifier.ABSTRACT)
-        .and()
-        .areNotInterfaces()
         .should()
-        .beAnnotatedWith(jakarta.transaction.Transactional.class)
-        .because("repositories should be annotated as transactional");
+        .notBeAnnotatedWith(org.springframework.transaction.annotation.Transactional.class)
+        .because("repositories should not be transactional");
 
     /**
      * Services should be transactional.
