@@ -9,7 +9,7 @@ import com.tngtech.archunit.lang.SimpleConditionEvent;
 import jakarta.persistence.Table;
 
 /**
- * Checks if a class is annotated with @Table, or else if any super class is annotated with it.
+ * Checks if a class is annotated with {@code @Table}, or else if any super class is annotated with it.
  */
 public final class BeAnnotatedWithTableOnClassOrSuperclass extends ArchCondition<JavaClass> {
 
